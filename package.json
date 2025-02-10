@@ -37,5 +37,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-private-methods": "^7.25.9"
+  },
+  "babel": {
+    "plugins": ["@babel/plugin-transform-private-methods"]
   }
 }
