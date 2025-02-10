@@ -1,0 +1,86 @@
+.sidebar {
+    border-right: 4px solid black;
+    width: 290px; /* Adjusted width */
+    height: 100vh;
+    background-color: transparent;
+    margin-top: -40px;
+    padding-left: 20px;
+}
+
+.favorites-title {
+    color: #000000; /* Grey color like 'Take 5' */
+    text-shadow: 2px 2px 4px #00aaff; /* Blue shadow like 'Movies' */
+    font-size: 84px;
+    font-family: 'Dancing Script', cursive;
+    font-weight: bold;
+    margin-top: 160px;
+}
+
+.favorites-divider {
+    width: 120%;
+    height: 4px;
+    background-color: black;
+    margin-top: -140px; /* Adjusted margin to bring it closer */
+    margin-left: -5%;
+}
+
+/* 🔹 Favorite Lists Container */
+.favorites-list {
+    margin-top: 40px; /* Moves the lists down */
+    padding-left: 15px;
+}
+
+/* 🔹 Updated Favorites Item Styling */
+.favorites-item {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 10px;
+    padding: 12px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    background: #131313; /* Dark Grey */
+    color: white;
+    border: 3px solid black; /* Black Borders */
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+    margin-top: 10px;
+    width: 80%; /* Prevents full extension to vertical line */
+}
+
+/* 🔹 Hover Effect - White Glow */
+.favorites-item:hover {
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.6);
+    transform: scale(1.05);
+}
+
+/* 🔹 Star Icon (Color now handled in JSX) */
+.star-icon {
+    margin-right: 10px;
+    font-size: 32px;
+}
+
+/* 🔹 Editable Favorite List Names */
+.favorites-input {
+    border: none;
+    background: transparent;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    width: 80%;
+}
+
+.favorites-input:focus {
+    outline: none;
+    border-bottom: 2px solid white;
+}
+
+/* 🔹 Login Message */
+.login-message {
+    font-size: 30px;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    margin-top: 200px;
+    font-style: italic;
+}

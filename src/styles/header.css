@@ -207,7 +207,7 @@
 /* Adjusting search and dropdown positioning */
 .search-bar {
     position: absolute;
-    top: 170px; /* Moves it down to sit near the black/gray transition */
+    top: 170px;
     left: 66%;
     transform: translateX(-50%);
     display: flex;
@@ -216,7 +216,7 @@
 
 /* Larger Input & Dropdowns */
 .search-input, .actor-input {
-    width: 350px; /* Increased size */
+    width: 350px;
     padding: 12px;
     font-size: 16px;
     border: 1px solid #ccc;
@@ -230,7 +230,7 @@
 }
 
 .genre-dropdown {
-    width: 200px; /* Bigger dropdowns */
+    width: 200px;
     padding: 12px;
     font-size: 16px;
     border-radius: 5px;
@@ -240,7 +240,7 @@
 }
 
 .year-dropdown {
-    width: 150px; /* Bigger dropdowns */
+    width: 150px; 
     padding: 12px;
     font-size: 16px;
     border-radius: 5px;
@@ -250,14 +250,15 @@
 }
 
 .limited-size {
-    max-height: 60px; /* Prevents it from being too long */
-    overflow-y: auto;  /* Enables scrolling */
+    max-height: 60px;
+    overflow-y: auto;
 }
 
 /* Light Mode */
 .light-header .search-input,
 .light-header .genre-dropdown,
-.light-header .year-dropdown {
+.light-header .year-dropdown,
+.light-header .actor-input {
     background: #fff;
     color: #000;
     border: 1px solid #666;
@@ -266,34 +267,34 @@
 /* Custom Scrollbar */
 .genre-dropdown::-webkit-scrollbar,
 .year-dropdown::-webkit-scrollbar {
-    width: 10px; /* Scrollbar width */
+    width: 10px;
 }
 
 /* Scrollbar Track (Background) */
 .genre-dropdown::-webkit-scrollbar-track,
 .year-dropdown::-webkit-scrollbar-track {
-    background: #414144; /* Dark background */
+    background: #414144;
     border-radius: 5px;
 }
 
 /* Scrollbar Thumb (The draggable part) */
 .genre-dropdown::-webkit-scrollbar-thumb,
 .year-dropdown::-webkit-scrollbar-thumb {
-    background: linear-gradient(45deg, #09a2df, #6c757d); /* Two-tone gradient */
+    background: linear-gradient(45deg, #09a2df, #6c757d);
     border-radius: 5px;
 }
 
 /* Optional: Scrollbar Thumb Hover Effect */
 .genre-dropdown::-webkit-scrollbar-thumb:hover,
 .year-dropdown::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(45deg, #0677a7, #4a5257); /* Darker on hover */
+    background: linear-gradient(45deg, #0677a7, #4a5257);
 }
 
 /* Header Description Styling */
 .header-description {
     position: absolute;
     top: -10px;
-    left: 1060px;
+    left: 1000px;
     text-align: left;
     z-index: 20;
 }

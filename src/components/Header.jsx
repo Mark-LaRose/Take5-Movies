@@ -2,7 +2,7 @@ import React from "react";
 import "../styles/header.css";
 import { BsSun, BsMoon } from "react-icons/bs"; // Icons for theme toggle
 
-function Header({ toggleTheme, isDarkMode }) {
+function Header({ toggleTheme, isDarkMode, isLoggedIn, toggleLogin }) {
   return (
     <header className={`header-container ${isDarkMode ? "dark-header" : "light-header"}`}>
       {/* Title & Clapperboard */}
@@ -14,7 +14,8 @@ function Header({ toggleTheme, isDarkMode }) {
       <div className="header-description">
         <p className="header-text">Your one-stop spot for everything movies!</p>
       </div>
-      {/* Search Bar (Moved Down) */}
+
+      {/* Search Bar */}
       <div className="search-bar">
         <input type="text" placeholder="Search Movies..." className="search-input" />
         <select className="genre-dropdown">
@@ -46,11 +47,13 @@ function Header({ toggleTheme, isDarkMode }) {
       {/* Top Right Controls */}
       <div className="top-right-controls">
         {/* Animated Login Button */}
-        <div class="animated-border-wrapper">
-          <div class="animated-border-effect">
+        <div className="animated-border-wrapper">
+          <div className="animated-border-effect">
             <div></div>
           </div>
-          <button class="animated-border">Login</button>
+          <button className="animated-border" onClick={toggleLogin}>
+            {isLoggedIn ? "Logout" : "Login"}
+          </button>
         </div>
 
         {/* Theme Toggle */}
