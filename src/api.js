@@ -38,6 +38,7 @@ export const fetchContent = async (selectedType = "movie", page = 1, searchQuery
       title: item.title || item.name, // Use `name` for TV shows
       release_date: item.release_date || item.first_air_date || "N/A",
       poster_path: item.poster_path,
+      overview: item.overview || "No description available.", // **Added this line to include descriptions**
     }));
   } catch (error) {
     console.error(`Error fetching ${selectedType === "movie" ? "movies" : "TV shows"}:`, error);

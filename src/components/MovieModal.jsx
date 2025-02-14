@@ -12,15 +12,23 @@ const starColors = [
   "navy", "grey", "gold", "darkorange", "red", "magenta"
 ];
 
-function MovieModal({ movie, isOpen, onClose, onAddToFavorites }) {
+function MovieModal({ movie, isOpen, onClose, onAddToFavorites, userFavorites }) {
   const [trailer, setTrailer] = useState(null);
-  const [selectedFavorite, setSelectedFavorite] = useState(null); 
+  const [highlightedStars, setHighlightedStars] = useState([]);
 
   useEffect(() => {
     if (movie && isOpen) {
       fetchTrailer(movie.id);
+      // Update the highlighted stars when the modal opens
+      if (userFavorites) {
+        const movieId = movie.id;
+        const updatedHighlightedStars = userFavorites
+          .map((list, index) => list.movies.some((m) => m.id === movieId) ? index : -1)
+          .filter((index) => index !== -1); // Get indexes where the movie is in the list
+        setHighlightedStars(updatedHighlightedStars);
+      }
     }
-  }, [movie, isOpen]);
+  }, [movie, isOpen, userFavorites]);
 
   const fetchTrailer = async (movieId) => {
     try {
@@ -35,6 +43,19 @@ function MovieModal({ movie, isOpen, onClose, onAddToFavorites }) {
       console.error("Error fetching trailer:", error);
       setTrailer(null);
     }
+  };
+
+  const handleStarClick = (index) => {
+    const updatedStars = [...highlightedStars];
+    if (updatedStars.includes(index)) {
+      // Remove from favorites if already selected
+      updatedStars.splice(updatedStars.indexOf(index), 1);
+    } else {
+      // Add to favorites if not selected
+      updatedStars.push(index);
+    }
+    setHighlightedStars(updatedStars);
+    onAddToFavorites({ id: String(movie.id) }, updatedStars);
   };
 
   if (!isOpen || !movie) return null; // Don't render if modal is closed
@@ -77,14 +98,11 @@ function MovieModal({ movie, isOpen, onClose, onAddToFavorites }) {
                     key={index}
                     className="favorite-star"
                     style={{
-                      color: color, 
-                      opacity: selectedFavorite === index ? 1 : 0.4, 
+                      color: color,
+                      opacity: highlightedStars.includes(index) ? 1 : 0.4,
                       cursor: "pointer"
                     }}
-                    onClick={() => {
-                      setSelectedFavorite(index);
-                      onAddToFavorites(movie, index);
-                    }}
+                    onClick={() => handleStarClick(index)} // Handle star click to toggle movie in list
                   />
                 ))}
               </div>

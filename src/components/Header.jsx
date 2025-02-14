@@ -8,13 +8,37 @@ function Header({
   selectedType, setSelectedType, setSearchQuery, 
   setSelectedGenre, setSelectedYear, setActorQuery 
 }) {
-  const { loginWithPopup, logout, isAuthenticated } = useAuth0();
+  const { loginWithPopup, logout, isAuthenticated, getAccessTokenSilently } = useAuth0();
 
+  // Log login action
   const handleLogin = () => {
-    loginWithPopup().then(toggleLogin).catch(error => console.error("Login failed:", error));
+    console.log("Login button clicked");
+  
+    loginWithPopup()
+      .then(async () => {
+        console.log("Login successful");
+  
+        // Fetch the user's Auth0 token
+        const userToken = await getAccessTokenSilently({
+          audience: "https://dev-pp4hwzpv0zmbbko2.us.auth0.com/api/v2/",
+          scope: "read:current_user",
+        });
+        console.log("User token received:", userToken);
+  
+        // Store token in localStorage ✅
+        localStorage.setItem("token", userToken);
+  
+        // Toggle login state
+        toggleLogin();
+      })
+      .catch(error => {
+        console.error("Login failed:", error);
+      });
   };
 
+  // Log logout action
   const handleLogout = () => {
+    console.log("Logout button clicked");
     logout({ returnTo: window.location.origin });
     toggleLogin();
   };
@@ -76,7 +100,10 @@ function Header({
       {/* Search Bar */}
       <div className="search-bar">
         {/* Type Selection (Movies / TV Shows) */}
-        <select className="type-dropdown" onChange={(e) => setSelectedType(e.target.value)}>
+        <select className="type-dropdown" onChange={(e) => {
+          setSelectedType(e.target.value);
+          console.log("Selected Type:", e.target.value); // Log selected type
+        }}>
           <option value="movie">Movies</option>
           <option value="tv">TV Shows</option>
         </select>
@@ -87,18 +114,22 @@ function Header({
           className="search-input"
           onChange={(e) => {
             const inputValue = e.target.value.toLowerCase();
-            const containsBlockedWord = blockedWordsRegex.test(inputValue); // **Corrected check**
+            const containsBlockedWord = blockedWordsRegex.test(inputValue);
 
             if (!containsBlockedWord) {
               setSearchQuery(e.target.value);
+              console.log("Search Query Updated:", e.target.value); // Log search query
             } else {
-              setSearchQuery(""); // Clears search if blocked word is detected
+              setSearchQuery("");  // Clears search if blocked word is detected
             }
           }}
         />
 
-        {/* Genre Selection - Updates Dynamically */}
-        <select className="genre-dropdown" onChange={(e) => setSelectedGenre(e.target.value)}>
+        {/* Genre Selection */}
+        <select className="genre-dropdown" onChange={(e) => {
+          setSelectedGenre(e.target.value);
+          console.log("Selected Genre:", e.target.value); // Log selected genre
+        }}>
           <option value="">Genre</option>
           {genreOptions.map((genre) => (
             <option key={genre.value} value={genre.value}>{genre.label}</option>
@@ -106,7 +137,10 @@ function Header({
         </select>
 
         {/* Year Selection */}
-        <select className="year-dropdown limited-size" onChange={(e) => setSelectedYear(e.target.value)}>
+        <select className="year-dropdown limited-size" onChange={(e) => {
+          setSelectedYear(e.target.value);
+          console.log("Selected Year:", e.target.value); // Log selected year
+        }}>
           <option value="">Year</option>
           {Array.from({ length: 80 }, (_, i) => {
             const year = new Date().getFullYear() - i;
@@ -119,7 +153,10 @@ function Header({
           type="text"
           placeholder="Search by Actor/Actress..."
           className="actor-input"
-          onChange={(e) => setActorQuery(e.target.value)}
+          onChange={(e) => {
+            setActorQuery(e.target.value);
+            console.log("Actor Search Query Updated:", e.target.value); // Log actor search query
+          }}
         />
       </div>
 
