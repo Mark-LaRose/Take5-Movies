@@ -13,16 +13,18 @@ function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [content, setContent] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [favorites, setFavorites] = useState([]); // Add favorites state
+  const [favorites, setFavorites] = useState([]); 
+  const [selectedFavoritesList, setSelectedFavoritesList] = useState(null);
+  const [favoriteMovies, setFavoriteMovies] = useState([]);
 
-  // Search & Filter State
+  // ✅ Restore Search & Filter State
   const [selectedType, setSelectedType] = useState("movie");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedGenre, setSelectedGenre] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
   const [actorQuery, setActorQuery] = useState("");
 
-  // Load theme from localStorage
+  // ✅ Load theme from localStorage
   useEffect(() => {
     const savedTheme = localStorage.getItem("darkMode");
     if (savedTheme) {
@@ -31,8 +33,10 @@ function App() {
     }
   }, []);
 
-  // Fetch movies/TV shows when filters change
+  // ✅ Fetch movies/TV shows when filters change
   useEffect(() => {
+    if (selectedFavoritesList !== null) return;
+
     const getContent = async () => {
       console.log("Fetching content with filters:", {
         selectedType,
@@ -47,9 +51,9 @@ function App() {
       setContent(contentData);
     };
     getContent();
-  }, [selectedType, currentPage, searchQuery, selectedGenre, selectedYear, actorQuery]);
+  }, [selectedType, currentPage, searchQuery, selectedGenre, selectedYear, actorQuery, selectedFavoritesList]);
 
-  // Fetch the ID token and send it to the backend
+  // ✅ Fetch Token After Login
   const fetchToken = async () => {
     if (isAuthenticated) {
       try {
@@ -60,15 +64,11 @@ function App() {
         }
 
         console.log("ID Token:", token.__raw);
-
-        // Store token in localStorage
         localStorage.setItem("token", token.__raw);
 
         const response = await fetch("http://localhost:5000/api/auth/login", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ token: token.__raw }),
         });
 
@@ -76,7 +76,7 @@ function App() {
         console.log("Backend Response:", data);
 
         if (data.success && data.appToken) {
-          localStorage.setItem("appToken", data.appToken); // Store app token if needed
+          localStorage.setItem("appToken", data.appToken);
         }
       } catch (error) {
         console.error("❌ Error fetching token:", error);
@@ -87,48 +87,87 @@ function App() {
   useEffect(() => {
     if (isAuthenticated) {
       console.log("✅ User is authenticated, fetching token...");
-      fetchToken(); // Fetch token after login
+      fetchToken();
     }
-  }, [isAuthenticated]); // ✅ Removed fetchToken from dependency array to fix warning
+  }, [isAuthenticated]);
 
-  // onAddToFavorites function
-  const onAddToFavorites = async (movie, highlightedStars) => {
+  // ✅ Fetch User's Favorites
+  const fetchFavorites = async () => {
     try {
       const token = localStorage.getItem("token");
-  
-      if (!token) {
-        console.error("❌ No token found in localStorage");
-        return;
-      }
-  
-      console.log("🔹 Sending request to update favorites", {
-        movieId: movie.id,
-        favoriteListIndexes: highlightedStars,
+      if (!token) return;
+
+      const response = await axios.get("http://localhost:5000/api/movies/favorites", {
+        headers: { Authorization: `Bearer ${token}` },
       });
-  
-      const response = await axios.post(
-        "http://localhost:5000/api/movies/updateFavorites",
-        {
-          userId: user.sub, // Include userId here!
-          movieId: movie.id,
-          favoriteListIndexes: highlightedStars,
-        },
-        {
-          headers: { Authorization: `Bearer ${token}` }, // Keep this for authentication
-        }
-      );
-  
+
       if (response.data.success) {
-        console.log("✅ Favorites updated successfully", response.data);
-      } else {
-        console.error("❌ Failed to update favorites", response.data);
+        setFavorites(response.data.favorites);
+        console.log("✅ User favorites fetched:", response.data.favorites);
       }
     } catch (error) {
-      console.error("❌ Error adding/removing from favorites:", error);
+      console.error("❌ Error fetching favorites:", error);
     }
   };
 
-  // Function to toggle theme
+  useEffect(() => {
+    if (isAuthenticated) fetchFavorites();
+  }, [isAuthenticated]);
+
+  // ✅ Fetch Movies from Selected Favorite List
+  const fetchFavoritesMovies = async (listIndex) => {
+    try {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+
+        console.log(`📌 Fetching movies for list index: ${listIndex}`);
+
+        const response = await axios.get("http://localhost:5000/api/movies/favorites", {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (response.data.success) {
+            console.log("✅ Full favorites response:", response.data.favorites);
+            const selectedList = response.data.favorites[listIndex];
+
+            if (!selectedList) {
+                console.warn("⚠️ Selected list does not exist at this index.");
+                return;
+            }
+
+            if (!selectedList.movies || selectedList.movies.length === 0) {
+                console.warn("⚠️ No movies found in the selected favorites list.");
+                setFavoriteMovies([]);
+                return;
+            }
+
+            console.log("🎥 Movie IDs in selected list:", selectedList.movies);
+
+            const movieRequests = selectedList.movies.map((id) =>
+                axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}`)
+            );
+
+            const responses = await Promise.all(movieRequests);
+            setFavoriteMovies(responses.map((res) => res.data));
+            console.log("🎬 Successfully fetched movies:", responses.map((res) => res.data));
+        }
+    } catch (error) {
+        console.error("❌ Error fetching favorite movies:", error);
+    }
+  };
+
+  // ✅ Handle Selecting Favorites List
+  const handleSelectFavoritesList = (listIndex) => {
+    if (selectedFavoritesList === listIndex) {
+      setSelectedFavoritesList(null);
+      setFavoriteMovies([]);
+    } else {
+      setSelectedFavoritesList(listIndex);
+      fetchFavoritesMovies(listIndex);
+    }
+  };
+
+  // ✅ Function to Toggle Theme
   const toggleTheme = () => {
     setIsDarkMode((prevMode) => {
       const newMode = !prevMode;
@@ -155,16 +194,13 @@ function App() {
       <Container fluid>
         <Row>
           <Col md={2} className="sidebar-container">
-            <Sidebar isLoggedIn={isAuthenticated} />
+            <Sidebar isLoggedIn={isAuthenticated} onSelectFavoritesList={handleSelectFavoritesList} />
           </Col>
           <Col md={10} className="movie-grid-container">
-            {isAuthenticated && <h1 className="welcome-message">Welcome, {user.name}!</h1>}
-            <MovieGrid 
-              movies={content} 
-              setCurrentPage={setCurrentPage} 
+            <MovieGrid
+              movies={selectedFavoritesList !== null ? favoriteMovies : content}
+              setCurrentPage={setCurrentPage}
               currentPage={currentPage}
-              onAddToFavorites={onAddToFavorites}
-              favorites={favorites}
             />
           </Col>
         </Row>

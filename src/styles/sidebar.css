@@ -61,24 +61,33 @@
     transform: scale(1.05);
 }
 
-/* Star Icon (Color now handled in JSX) */
+/* Star Icon (Now Dimmed by Default, Highlighted When Selected) */
 .star-icon {
     margin-right: 10px;
     font-size: 32px;
+    opacity: 0.4; /* ✅ Default dimmed */
+    transition: opacity 0.2s ease-in-out;
+}
+
+.star-icon.active {
+    opacity: 1; /* ✅ Highlighted when active */
 }
 
 /* Editable Favorite List Names */
-.favorites-input {
+.favorites-name-input {
     border: none;
-    background: transparent;
-    font-size: 20px;
+    background: transparent; /* ✅ No white box */
+    font-size: 20px; /* ✅ Keep text size normal */
     font-weight: bold;
     color: white;
     width: 80%;
+    outline: none;
+    padding: 0;
+    margin: 0;
 }
 
-.favorites-input:focus {
-    outline: none;
+/* Optional: Small underline effect when renaming */
+.favorites-name-input:focus {
     border-bottom: 2px solid white;
 }
 

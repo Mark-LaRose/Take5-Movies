@@ -9,12 +9,25 @@ router.get("/favorites", verifyToken, async (req, res) => {
   try {
     console.log("🔹 Fetching favorites for user:", req.user.userId);
 
-    const user = await User.findById(req.user.userId);
-    if (!user) return res.status(404).json({ success: false, message: "❌ User not found" });
+    const user = await User.findOne({ auth0Id: req.user.userId });
+
+    if (!user) {
+      console.error("❌ No user found for auth0Id:", req.user.userId);
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    if (!user.favorites || user.favorites.length === 0) {
+      console.error("❌ User has no favorites list.");
+      return res.status(404).json({ success: false, message: "Favorites not found" });
+    }
+
+    // ✅ Log the full favorites structure
+    console.log("✅ User's favorites structure:", JSON.stringify(user.favorites, null, 2));
 
     res.json({ success: true, favorites: user.favorites });
   } catch (err) {
-    res.status(500).json({ success: false, message: "Server error" });
+    console.error("🔥 Critical Server Error:", err);
+    res.status(500).json({ success: false, message: "Server error", error: err.message });
   }
 });
 

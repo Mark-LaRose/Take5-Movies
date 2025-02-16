@@ -12,24 +12,19 @@ const starColors = [
   "navy", "grey", "gold", "darkorange", "red", "magenta"
 ];
 
-function MovieModal({ movie, isOpen, onClose, onAddToFavorites, userFavorites }) {
+function MovieModal({ movie, isOpen, onClose, onAddToFavorites }) {
   const [trailer, setTrailer] = useState(null);
   const [highlightedStars, setHighlightedStars] = useState([]);
 
   useEffect(() => {
     if (movie && isOpen) {
-      fetchTrailer(movie.id);
-      // Update the highlighted stars when the modal opens
-      if (userFavorites) {
-        const movieId = movie.id;
-        const updatedHighlightedStars = userFavorites
-          .map((list, index) => list.movies.some((m) => m.id === movieId) ? index : -1)
-          .filter((index) => index !== -1); // Get indexes where the movie is in the list
-        setHighlightedStars(updatedHighlightedStars);
-      }
+        setHighlightedStars([]); // ✅ Reset before fetching new data
+        fetchTrailer(movie.id);
+        fetchFavorites(movie.id); // ✅ Ensure correct list highlighting
     }
-  }, [movie, isOpen, userFavorites]);
+  }, [movie, isOpen]); // ✅ Runs when movie or modal state changes
 
+  // Fetch Trailer
   const fetchTrailer = async (movieId) => {
     try {
       const response = await axios.get(
@@ -45,17 +40,71 @@ function MovieModal({ movie, isOpen, onClose, onAddToFavorites, userFavorites })
     }
   };
 
-  const handleStarClick = (index) => {
-    const updatedStars = [...highlightedStars];
-    if (updatedStars.includes(index)) {
-      // Remove from favorites if already selected
-      updatedStars.splice(updatedStars.indexOf(index), 1);
-    } else {
-      // Add to favorites if not selected
-      updatedStars.push(index);
+  // Fetch which favorite lists the movie is in
+  const fetchFavorites = async (movieId) => {
+    try {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+
+        console.log(`📌 Fetching which lists contain movie: ${movieId}`);
+
+        const response = await axios.get("http://localhost:5000/api/movies/favorites", {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (response.data.success) {
+            console.log("✅ Full favorites response:", response.data.favorites);
+            
+            // Ensure correct mapping from favorites structure
+            const movieInLists = response.data.favorites
+                .map((list, index) => list.movies.includes(String(movieId)) ? index : -1)
+                .filter(index => index !== -1); // ✅ Keep only valid indexes
+
+            console.log(`🎬 Movie ${movieId} found in lists:`, movieInLists);
+            setHighlightedStars(movieInLists);
+        }
+    } catch (error) {
+        console.error("❌ Error fetching favorites:", error);
     }
-    setHighlightedStars(updatedStars);
-    onAddToFavorites({ id: String(movie.id) }, updatedStars);
+  };
+
+  // Handle Star Click
+  const handleStarClick = async (index) => {
+    const isHighlighted = highlightedStars.includes(index);
+    let updatedStars;
+
+    if (isHighlighted) {
+        updatedStars = highlightedStars.filter(star => star !== index);
+    } else {
+        updatedStars = [...highlightedStars, index];
+    }
+
+    setHighlightedStars(updatedStars); // ✅ Immediate UI update
+
+    try {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+
+        console.log(`📌 Toggling movie ${movie.id} in list index: ${index}`);
+
+        const response = await axios.post(
+            "http://localhost:5000/api/movies/updateFavorites",
+            {
+                movieId: movie.id,
+                favoriteListIndexes: [index],
+            },
+            { headers: { Authorization: `Bearer ${token}` } }
+        );
+
+        if (response.data.success) {
+            console.log("✅ Favorites updated successfully", response.data);
+            await fetchFavorites(movie.id); // ✅ Ensure stars update correctly
+        } else {
+            console.error("❌ Failed to update favorites", response.data);
+        }
+    } catch (error) {
+        console.error("❌ Error adding/removing from favorites:", error);
+    }
   };
 
   if (!isOpen || !movie) return null; // Don't render if modal is closed
