@@ -1,50 +1,76 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { FaStar } from 'react-icons/fa';
-import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
+import axios from 'axios';
 import '../styles/sidebar.css';
 
+// ✅ Generates consistent colors for favorite lists
 const getStarColor = (index) => {
-  const colors = ['deepskyblue', 'teal', 'lime', 'purple', 'indigo', 'royalblue', 'navy', 'grey', 'gold', 'darkorange', 'red', 'magenta'];
+  const colors = [
+    'deepskyblue', 'teal', 'lime', 'purple', 'indigo', 'royalblue',
+    'navy', 'grey', 'gold', 'darkorange', 'red', 'magenta'
+  ];
   return colors[index % colors.length];
 };
 
-// Default lists
-const defaultLists = Array.from({ length: 12 }, (_, index) => ({
-  id: `list-${index + 1}`,
-  name: `Favorites List ${index + 1}`,
-  color: getStarColor(index),
-}));
-
 function Sidebar({ isLoggedIn, onSelectFavoritesList }) {
-  const [favorites, setFavorites] = useState(defaultLists);
-  const [selectedListIndex, setSelectedListIndex] = useState(null); // ✅ Track selected list
+  const [favorites, setFavorites] = useState([]);
+  const [selectedListIndex, setSelectedListIndex] = useState(null);
 
-  const handleDragEnd = (result) => {
-    if (!result.destination) return;
-    const newFavorites = [...favorites];
-    const [movedItem] = newFavorites.splice(result.source.index, 1);
-    newFavorites.splice(result.destination.index, 0, movedItem);
-    setFavorites(newFavorites);
+  useEffect(() => {
+    if (isLoggedIn) {
+      fetchFavorites();
+    }
+  }, [isLoggedIn]);
+
+  // ✅ Fetch favorite lists from MongoDB
+  const fetchFavorites = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      const response = await axios.get("http://localhost:5000/api/movies/favorites", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (response.data.success) {
+        setFavorites(response.data.favorites);
+      }
+    } catch (error) {
+      console.error("❌ Error fetching favorites:", error);
+    }
   };
 
-  // ✅ Rename Favorite List
-  const renameFavoriteList = (index, newName) => {
-    setFavorites((prevFavorites) =>
-      prevFavorites.map((list, i) => (i === index ? { ...list, name: newName } : list))
-    );
+  // ✅ Handle renaming favorite lists
+  const renameFavoriteList = async (index, newName) => {
+    const updatedFavorites = [...favorites];
+    updatedFavorites[index].name = newName;
+    setFavorites(updatedFavorites);
+
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      await axios.post(
+        "http://localhost:5000/api/movies/updateFavoriteListName",
+        { index, newName },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      console.log(`✅ Renamed favorites list ${index + 1} to "${newName}"`);
+    } catch (error) {
+      console.error("❌ Error renaming favorite list:", error);
+    }
   };
 
-  // ✅ Handle Selection & Highlighting
+  // ✅ Handle selecting a favorite list
   const handleSelectList = (index) => {
     if (selectedListIndex === index) {
-        // ✅ If clicking the same list again, deselect it & show all movies
-        setSelectedListIndex(null);
-        onSelectFavoritesList(null); // ✅ Pass null to show main movie search
+      setSelectedListIndex(null);
+      onSelectFavoritesList(null);
     } else {
-        // ✅ Otherwise, select the clicked list
-        setSelectedListIndex(index);
-        onSelectFavoritesList(index);
+      setSelectedListIndex(index);
+      onSelectFavoritesList(index);
     }
   };
 
@@ -54,34 +80,22 @@ function Sidebar({ isLoggedIn, onSelectFavoritesList }) {
       <div className="favorites-divider"></div>
 
       {isLoggedIn ? (
-        <DragDropContext onDragEnd={handleDragEnd}>
-          <Droppable droppableId="favoritesList">
-            {(provided) => (
-              <div ref={provided.innerRef} {...provided.droppableProps}>
-                {favorites.map((list, index) => (
-                  <Draggable key={list.id} draggableId={list.id} index={index}>
-                    {(provided) => (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        onClick={() => handleSelectList(index)} // ✅ Update selected list
-                      >
-                        <FavoriteListItem 
-                          list={list} 
-                          index={index} 
-                          selectedListIndex={selectedListIndex} 
-                          renameFavoriteList={renameFavoriteList} 
-                        />
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
+        <div>
+          {favorites.map((list, index) => (
+            <div
+              key={index}
+              className="favorites-button"
+              onClick={() => handleSelectList(index)}
+            >
+              <FavoriteListItem 
+                list={list} 
+                index={index} 
+                selectedListIndex={selectedListIndex} 
+                renameFavoriteList={renameFavoriteList} 
+              />
+            </div>
+          ))}
+        </div>
       ) : (
         <p className="login-message">Login to access favorites.</p>
       )}
@@ -89,7 +103,7 @@ function Sidebar({ isLoggedIn, onSelectFavoritesList }) {
   );
 }
 
-// ✅ Updated Favorite List Item (Inline Editing with No White Box)
+// ✅ Favorite List Item (Handles Editing & Display)
 function FavoriteListItem({ list, index, selectedListIndex, renameFavoriteList }) {
   const [isEditing, setIsEditing] = useState(false);
   const [newName, setNewName] = useState(list.name);
@@ -99,7 +113,7 @@ function FavoriteListItem({ list, index, selectedListIndex, renameFavoriteList }
       <FaStar
         className="star-icon"
         style={{
-          color: list.color,
+          color: getStarColor(index), // ✅ Correctly applies color based on list index
           opacity: selectedListIndex === index ? 1 : 0.4, // ✅ Dimmed unless selected
           cursor: "pointer",
         }}

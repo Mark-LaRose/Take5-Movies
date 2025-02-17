@@ -1,32 +1,24 @@
 const mongoose = require("mongoose");
 
-const FavoriteListSchema = new mongoose.Schema(
-  {
-    listName: { type: String, required: true },
-    movies: [{ type: String }] // Ensuring movie IDs are always stored as strings
-  },
-  { _id: false }
-);
-
-const UserSchema = new mongoose.Schema(
-  {
-    auth0Id: { type: String, required: true, unique: true },
-    name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    avatar: { type: String, default: "" },
-    favorites: {
-      type: [FavoriteListSchema],
-      default: Array.from({ length: 12 }, (_, i) => ({
-        listName: `Favorites List ${i + 1}`,
-        movies: []
-      }))
+// Define User Schema
+const userSchema = new mongoose.Schema({
+  auth0Id: { type: String, required: true, unique: true },
+  name: String,
+  email: String,
+  avatar: String,
+  favorites: [
+    {
+      movies: { type: [String], default: [] }
     }
-  },
-  { timestamps: true }
-);
+  ],
+  favoriteListNames: {
+    type: [String],
+    default: Array.from({ length: 12 }, (_, i) => `Favorites List ${i + 1}`) // ✅ Default names
+  }
+}, { timestamps: true });
 
-/** ✅ Method: Add or Remove a Movie from a Favorite List */
-UserSchema.methods.updateFavoriteList = async function (listIndex, movieId) {
+/** ✅ Add or Remove a Movie from a Favorite List */
+userSchema.methods.updateFavoriteList = async function (listIndex, movieId) {
   movieId = String(movieId); // Ensure movieId is always a string
 
   if (listIndex < 0 || listIndex >= this.favorites.length) {
@@ -56,17 +48,30 @@ UserSchema.methods.updateFavoriteList = async function (listIndex, movieId) {
   await this.save();
 };
 
-/** ✅ Method: Get All Favorite Movies from All Lists */
-UserSchema.methods.getFavoriteMovies = function () {
+/** ✅ Retrieve All Favorite Movies */
+userSchema.methods.getFavoriteMovies = function () {
   return this.favorites.reduce((allMovies, list) => allMovies.concat(list.movies), []);
 };
 
-/** ✅ Method: Clear All Favorite Lists */
-UserSchema.methods.clearAllFavorites = async function () {
+/** ✅ Clear All Favorite Lists */
+userSchema.methods.clearAllFavorites = async function () {
   this.favorites.forEach(list => (list.movies = []));
-  this.markModified("favorites"); // ✅ Ensure Mongoose detects changes
+  this.markModified("favorites");
   await this.save();
   console.log("⚠️ All favorite lists have been cleared!");
 };
 
-module.exports = mongoose.model("User", UserSchema);
+/** ✅ Rename Favorite List */
+userSchema.methods.updateButtonName = async function (index, newName) {
+  if (index < 0 || index >= this.favoriteListNames.length) {
+    throw new Error("❌ Invalid list index");
+  }
+
+  this.favoriteListNames[index] = newName;
+  this.markModified("favoriteListNames");
+  await this.save();
+  console.log(`✅ Renamed favorites list ${index + 1} to "${newName}"`);
+};
+
+const User = mongoose.model("User", userSchema);
+module.exports = User;
