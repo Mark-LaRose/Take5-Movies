@@ -1,4 +1,4 @@
-MoviePlus 🎬
+Take 5 Movies 🎬
 Your one-stop spot for everything movies!
 
 MoviePlus is a web application that allows users to browse movies, create customizable favorite lists, and log in using their GitHub or Google account for a personalized experience.
