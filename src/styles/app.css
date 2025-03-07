@@ -37,3 +37,24 @@
     width: 100% !important;
     overflow: hidden !important;
 }
+
+/* Tablets: 768px and up */
+@media screen and (min-width: 768px) {
+  body {
+    font-size: 18px;
+  }
+}
+
+/* Larger Tablets / Small Laptops: 1024px and up */
+@media screen and (min-width: 1024px) {
+  body {
+    font-size: 20px;
+  }
+}
+
+/* Desktops & Large Screens: 1280px and up */
+@media screen and (min-width: 1280px) {
+  body {
+    font-size: 22px;
+  }
+}

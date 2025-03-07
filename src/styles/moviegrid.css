@@ -1,16 +1,17 @@
 .movie-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* Adjusted for better fit */
-    gap: 10px; /* Increased spacing between movies */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
     padding: 10px;
-    margin-top: -1140px; /* Moves grid up */
-    justify-content: center; /* Centers grid properly */
-    max-width: 80%; /* Ensures it doesn't stretch too far */
+    margin-top: 0px;
+    justify-content: center;
+    max-width: 100%; 
     margin-left: auto;
-    margin-right: 100px;
+    margin-right: 0px;
 }
 
 /* Ensures the grid doesn't get too wide */
+
 .movie-container {
     max-width: 1400px;
     margin: 0 auto;
@@ -20,24 +21,24 @@
     background: transparent;
     border-radius: 8px;
     text-align: center;
-    padding: 10px;
+    padding: 4px;
 }
 
 .movie-card img {
-    width: 200%; /* Increased for larger images */
-    max-width: 280px; /* Ensures it doesn't get too large */
+    width: 100%;
+    max-width: 80px;
     border-radius: 8px;
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     cursor: pointer;
 }
 
 .movie-card h3 {
-    font-size: 18px;
-    margin: 10px 0 5px;
+    font-size: 14px;
+    margin: 0px 0 5px;
 }
 
 .movie-card p {
-    font-size: 16px;
+    font-size: 12px;
     color: #aaa;
 }
 
@@ -50,20 +51,20 @@
 
 .pagination-controls {
     display: flex;
-    justify-content: center; /* Centering the buttons */
+    justify-content: center;
     align-items: center;
-    margin-left: 280px;
-    margin-top: 20px; /* Adds space above pagination */
-    margin-bottom: 50px; /* Adds space below pagination */
+    margin-left: 0px;
+    margin-top: 20px;
+    margin-bottom: 50px;
 }
 
 .pagination-controls button {
     background: #444;
     color: white;
     border: none;
-    padding: 10px 16px; /* Slightly bigger buttons */
-    margin: 0 8px; /* Adds some spacing between buttons */
-    font-size: 16px;
+    padding: 10px 10px;
+    margin: 0 8px;
+    font-size: 12px;
     cursor: pointer;
     border-radius: 5px;
 }
@@ -71,4 +72,277 @@
 .pagination-controls button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+}
+
+
+/* ----------------------------------------------------- MEDIA QUERIES ---------------------------------------------------------------------------  */
+
+
+/* Tablets: 768px and up */
+@media screen and (min-width: 768px) {
+    .movie-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0px;
+        padding: 0px;
+        margin-top: -2470px;
+        justify-content: center;
+        max-width: 65%; 
+        margin-left: auto;
+        margin-right: 10px;
+    }
+    
+    /* Ensures the grid doesn't get too wide */
+    
+    .movie-container {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+    
+    .movie-card {
+        background: transparent;
+        border-radius: 8px;
+        text-align: center;
+        padding: 10px;
+    }
+    
+    .movie-card img {
+        width: 100%;
+        max-width: 130px;
+        border-radius: 8px;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        cursor: pointer;
+    }
+    
+    .movie-card h3 {
+        font-size: 24px;
+        margin: 0px 0 5px;
+    }
+    
+    .movie-card p {
+        font-size: 20px;
+        color: #aaaaaa;
+        margin-top: -5px;
+    }
+    
+    .movie-card img:hover {
+        transform: scale(1.05);
+        box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.6);
+    }
+    
+    /* Pagination */
+    
+    .pagination-controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 280px;
+        margin-top: 20px;
+        margin-bottom: 50px;
+    }
+    
+    .pagination-controls button {
+        background: #444;
+        color: white;
+        border: none;
+        padding: 10px 16px;
+        margin: 0 8px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    
+    .pagination-controls button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
+
+
+/* ----------------------------------------------------- MEDIA QUERIES ---------------------------------------------------------------------------  */
+
+
+@media screen and (min-width: 800px) {
+    .movie-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0px;
+        padding: 0px;
+        margin-top: -3080px;
+        justify-content: center;
+        max-width: 65%; 
+        margin-left: auto;
+        margin-right: 10px;
+    }
+}
+
+/* ----------------------------------------------------- MEDIA QUERIES ---------------------------------------------------------------------------  */
+
+
+
+/* Larger Tablets / Small Laptops: 1024px and up */
+@media screen and (min-width: 1024px) {
+    .movie-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0px;
+        padding: 0px;
+        margin-top: -3260px;
+        justify-content: center;
+        max-width: 65%; 
+        margin-left: auto;
+        margin-right: 10px;
+    }
+    
+    /* Ensures the grid doesn't get too wide */
+    
+    .movie-container {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+    
+    .movie-card {
+        background: transparent;
+        border-radius: 8px;
+        text-align: center;
+        padding: 10px;
+    }
+    
+    .movie-card img {
+        width: 100%;
+        max-width: 130px;
+        border-radius: 8px;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        cursor: pointer;
+    }
+    
+    .movie-card h3 {
+        font-size: 24px;
+        margin: 0px 0 5px;
+    }
+    
+    .movie-card p {
+        font-size: 20px;
+        color: #aaaaaa;
+        margin-top: -5px;
+    }
+    
+    .movie-card img:hover {
+        transform: scale(1.05);
+        box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.6);
+    }
+    
+    /* Pagination */
+    
+    .pagination-controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 280px;
+        margin-top: 20px;
+        margin-bottom: 50px;
+    }
+    
+    .pagination-controls button {
+        background: #444;
+        color: white;
+        border: none;
+        padding: 10px 16px;
+        margin: 0 8px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    
+    .pagination-controls button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
+
+
+/* ----------------------------------------------------- MEDIA QUERIES ---------------------------------------------------------------------------  */
+
+
+
+/* Desktops & Large Screens: 1280px and up */
+@media screen and (min-width: 1280px) {
+    .movie-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 10px;
+        padding: 10px;
+        margin-top: -1740px;
+        justify-content: center;
+        max-width: 80%; 
+        margin-left: auto;
+        margin-right: 40px;
+        z-index: 60;
+    }
+    
+    /* Ensures the grid doesn't get too wide */
+    
+    .movie-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        z-index: 60;
+    }
+    
+    .movie-card {
+        background: transparent;
+        border-radius: 8px;
+        text-align: center;
+        padding: 10px;
+        z-index: 60;
+    }
+    
+    .movie-card img {
+        width: 100%;
+        max-width: 200px;
+        border-radius: 8px;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        cursor: pointer;
+    }
+    
+    .movie-card h3 {
+        font-size: 18px;
+        margin: 10px 0 5px;
+    }
+    
+    .movie-card p {
+        font-size: 16px;
+        color: #aaa;
+    }
+    
+    .movie-card img:hover {
+        transform: scale(1.05);
+        box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.6);
+    }
+    
+    /* Pagination */
+    
+    .pagination-controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 280px;
+        margin-top: 20px;
+        margin-bottom: 50px;
+    }
+    
+    .pagination-controls button {
+        background: #444;
+        color: white;
+        border: none;
+        padding: 10px 16px;
+        margin: 0 8px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    
+    .pagination-controls button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
 }

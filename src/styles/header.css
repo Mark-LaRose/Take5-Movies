@@ -3,8 +3,8 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    padding: 50px;
-    height: 140px;
+    padding: 0px;
+    height: 80px;
     transition: background-color 0.3s ease-in-out;
 }
 
@@ -20,31 +20,31 @@
 
 /* Clapperboard Image */
 .clapperboard {
-    width: 700px;
-    height: 300px;
+    width: 120px;
+    height: 60px;
     position: relative;
-    margin-left: 300px;
-    margin-top: 110px;
+    margin-left: 60px;
+    margin-top: 52px;
     z-index: 1;
 }
 
 /* Title Container */
 .title-container {
     position: absolute;
-    top: 50px;
-    left: 50px;
+    top: 20px;
+    left: 45px;
     text-align: left;
     z-index: 10;
 }
 
 /* "Take 5" Styling */
 .title {
-    font-size: 130px;
+    font-size: 30px;
     font-family: 'Bubblegum Sans', sans-serif;
     font-weight: bold;
     position: relative;
-    margin-top: -40px;
-    margin-left: 46px;
+    margin-top: 0px;
+    margin-left: -20px;
     color: rgb(78, 78, 78);
     transform: rotate(-10deg);
     z-index: 20;
@@ -52,10 +52,10 @@
 
 /* "Movies" Styling */
 .subtitle {
-    font-size: 240px;
+    font-size: 50px;
     font-weight: lighter;
     color: rgb(9, 162, 223);
-    margin-top: -240px;
+    margin-top: -50px;
     margin-left: -40px;
     font-family: 'Dancing Script', cursive;
     transform: rotate(-10deg);
@@ -65,20 +65,19 @@
 /* Top Right Controls (Login + Theme Toggle) */
 .top-right-controls {
     position: absolute;
-    top: 20px;
-    right: 40px;
+    top: 4px;
+    right: 5px;
     display: flex;
     align-items: center;
-    gap: 60px;
+    gap: 10px;
 }
-
-
 
 .animated-border-wrapper {
     display: inline-block;
     position: relative;
 }
-  
+
+/* Logout button */
 .animated-border {
     box-sizing: border-box;
     display: flex;
@@ -87,18 +86,18 @@
     text-decoration: none;
     cursor: pointer;
     width: 100%;
-    min-width: 180px;
+    min-width: 60px;
     outline: 2px solid transparent;
     outline-offset: 2px;
     padding: 5px 10px;
-    height: 3rem;
+    height: 20px;
     border-radius: 6px;
     background: #141518;
     color: #fff;
-    font-size: 16px;
+    font-size: 10px;
 }
   
-  /* Conic gradient */
+/* Conic gradient */
 .animated-border-effect {
     pointer-events: none;
     border-radius: 6px;
@@ -125,7 +124,7 @@
     width: 100%;
     animation: rotate 2s linear infinite;
     aspect-ratio: 1;
-  }
+}
   
 @keyframes rotate {
     from {
@@ -137,19 +136,16 @@
     }
 }
 
-
-
-
 /* Theme Toggle */
 .theme-toggle {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 5px;
 }
 
 /* Sun and Moon Icons */
 .sun-icon, .moon-icon {
-    font-size: 20px;
+    font-size: 10px;
     color: rgb(255, 255, 255);
 }
 
@@ -168,8 +164,8 @@
 
 /* Toggle Background */
 .toggle-slider {
-    width: 50px;
-    height: 25px;
+    width: 20px;
+    height: 10px;
     background-color: grey;
     border-radius: 25px;
     position: relative;
@@ -179,19 +175,19 @@
 /* Toggle Circle */
 .toggle-slider::before {
     content: "";
-    width: 20px;
-    height: 20px;
+    width: 10px;
+    height: 10px;
     background-color: white;
     border-radius: 50%;
     position: absolute;
-    left: 5px;
-    top: 2.5px;
+    left: 0px;
+    top: 0px;
     transition: 0.3s ease-in-out;
 }
 
 /* Move Toggle Circle When Checked */
 .theme-toggle input:checked + .toggle-slider::before {
-    left: 25px;
+    left: 10px;
 }
 
 /* Light Mode */
@@ -207,50 +203,58 @@
 /* Adjusting search and dropdown positioning */
 .search-bar {
     position: absolute;
-    top: 170px;
-    left: 69%;
+    top: 40px;
+    left: 55%;
     transform: translateX(-50%);
     display: flex;
-    gap: 45px;
+    gap: 5px;
 }
 
 /* Larger Input & Dropdowns */
 .search-input, .actor-input {
-    width: 350px;
-    padding: 12px;
-    font-size: 16px;
+    width: 105px;
+    padding: 0px;
+    font-size: 8px;
     border: 1px solid #ccc;
     border-radius: 5px;
     background: #1b1b1d;
     color: #fff;
+    height: 16px;
+    margin-top: -4px;
+    margin-left: 105px;
 }
 
 .actor-input {
-    width: 240px;
+    width: 92px;
+    margin-left: -100px;
 }
 
 .genre-dropdown {
-    width: 200px;
-    padding: 12px;
-    font-size: 16px;
+    width: 60px;
+    padding: 0px;
+    font-size: 10px;
     border-radius: 5px;
     background: #1b1b1d;
     color: #fff;
     border: 1px solid #ccc;
+    height: 16px;
+    margin-top: 20px;
+    margin-left: -30px;
 }
 
 .year-dropdown {
-    width: 150px; 
-    padding: 12px;
-    font-size: 16px;
+    width: 60px; 
+    padding: 0px;
+    font-size: 10px;
     border-radius: 5px;
     background: #1b1b1d;
     color: #fff;
     border: 1px solid #ccc;
+    margin-top: 20px;
 }
 
 .limited-size {
-    max-height: 60px;
+    max-height: 16px;
     overflow-y: auto;
 }
 
@@ -264,48 +268,22 @@
     border: 1px solid #666;
 }
 
-/* Custom Scrollbar */
-.genre-dropdown::-webkit-scrollbar,
-.year-dropdown::-webkit-scrollbar {
-    width: 10px;
-}
-
-/* Scrollbar Track (Background) */
-.genre-dropdown::-webkit-scrollbar-track,
-.year-dropdown::-webkit-scrollbar-track {
-    background: #414144;
-    border-radius: 5px;
-}
-
-/* Scrollbar Thumb (The draggable part) */
-.genre-dropdown::-webkit-scrollbar-thumb,
-.year-dropdown::-webkit-scrollbar-thumb {
-    background: linear-gradient(45deg, #09a2df, #6c757d);
-    border-radius: 5px;
-}
-
-/* Optional: Scrollbar Thumb Hover Effect */
-.genre-dropdown::-webkit-scrollbar-thumb:hover,
-.year-dropdown::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(45deg, #0677a7, #4a5257);
-}
-
 /* Header Description Styling */
 .header-description {
     position: absolute;
-    top: -10px;
-    left: 970px;
+    top: -4px;
+    left: 0px;
     text-align: left;
     z-index: 20;
 }
 
 /* First Part */
 .header-text {
-    font-size: 42px;
+    font-size: 10px;
     font-family: 'Dancing Script', cursive;
     font-weight: lighter;
     color: white;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
 }
 
 /* Movies/TV Shows Dropdown */
@@ -326,21 +304,944 @@
     border: 1px solid #666;
 }
 
-/* Custom Scrollbar */
-.type-dropdown::-webkit-scrollbar {
-    width: 10px;
+
+
+/* ----------------------------------------------------- MEDIA QUERIES ---------------------------------------------------------------------------  */
+
+
+/* Tablets: 768px and up */
+@media screen and (min-width: 768px) {
+    .header-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 50px;
+        height: 140px;
+        transition: background-color 0.3s ease-in-out;
+    }
+    
+    /* Light Mode Header */
+    .light-header {
+        background-color: #1b1b1d;
+    }
+    
+    /* Dark Mode Header */
+    .dark-header {
+        background-color: rgb(0, 0, 0);
+    }
+    
+    /* Clapperboard Image */
+    .clapperboard {
+        width: 360px;
+        height: 180px;
+        position: relative;
+        margin-left: 70px;
+        margin-top: 160px;
+        z-index: 1;
+    }
+    
+    /* Title Container */
+    .title-container {
+        position: absolute;
+        top: 50px;
+        left: 50px;
+        text-align: left;
+        z-index: 10;
+    }
+    
+    /* "Take 5" Styling */
+    .title {
+        font-size: 80px;
+        font-family: 'Bubblegum Sans', sans-serif;
+        font-weight: bold;
+        position: relative;
+        margin-top: 40px;
+        margin-left: 20px;
+        color: rgb(78, 78, 78);
+        transform: rotate(-10deg);
+        z-index: 20;
+    }
+    
+    /* "Movies" Styling */
+    .subtitle {
+        font-size: 120px;
+        font-weight: lighter;
+        color: rgb(9, 162, 223);
+        margin-top: -120px;
+        margin-left: -40px;
+        font-family: 'Dancing Script', cursive;
+        transform: rotate(-10deg);
+        z-index: 20;
+    }
+    
+    /* Top Right Controls (Login + Theme Toggle) */
+    .top-right-controls {
+        position: absolute;
+        top: 20px;
+        right: 15px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+    
+    .animated-border-wrapper {
+        display: inline-block;
+        position: relative;
+    }
+      
+    .animated-border {
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        cursor: pointer;
+        width: 100%;
+        min-width: 120px;
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+        padding: 5px 10px;
+        height: 32px;
+        border-radius: 6px;
+        background: #141518;
+        color: #fff;
+        font-size: 12px;
+    }
+      
+      /* Conic gradient */
+    .animated-border-effect {
+        pointer-events: none;
+        border-radius: 6px;
+        width: calc(100% - 1px);
+        height: calc(100% - 1px);
+        position: absolute;
+        padding: 1px;
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: exclude;
+        mask-composite: exclude;
+        -webkit-mask-composite: xor;
+    }
+      
+    .animated-border-effect div {
+        background-image: conic-gradient(from 0 at 50% 50%, rgba(255, 255, 255, .5) 0deg, rgba(255, 255, 255, 0) 60deg, rgba(255, 255, 255, 0) 310deg, rgba(255, 255, 255, .5) 360deg);
+        position: relative;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        width: 100%;
+        animation: rotate 2s linear infinite;
+        aspect-ratio: 1;
+    }
+      
+    @keyframes rotate {
+        from {
+            transform: translate(-50%, -50%) scale(1.4) rotate(0turn);
+        }
+      
+        to {
+            transform: translate(-50%, -50%) scale(1.4) rotate(1turn);
+        }
+    }
+    
+    /* Theme Toggle */
+    .theme-toggle {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    /* Sun and Moon Icons */
+    .sun-icon, .moon-icon {
+        font-size: 18px;
+        color: rgb(255, 255, 255);
+    }
+    
+    /* Custom Toggle Switch */
+    .theme-toggle input {
+        display: none;
+    }
+    
+    /* Toggle Wrapper */
+    .toggle-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+    }
+    
+    /* Toggle Background */
+    .toggle-slider {
+        width: 40px;
+        height: 15px;
+        background-color: grey;
+        border-radius: 25px;
+        position: relative;
+        transition: background 0.3s ease-in-out;
+    }
+    
+    /* Toggle Circle */
+    .toggle-slider::before {
+        content: "";
+        width: 10px;
+        height: 10px;
+        background-color: white;
+        border-radius: 50%;
+        position: absolute;
+        left: 5px;
+        top: 2.5px;
+        transition: 0.3s ease-in-out;
+    }
+    
+    /* Move Toggle Circle When Checked */
+    .theme-toggle input:checked + .toggle-slider::before {
+        left: 25px;
+    }
+    
+    /* Light Mode */
+    .theme-toggle input:checked + .toggle-slider {
+        background-color: #2c2d30;
+    }
+    
+    /* Dark Mode */
+    .theme-toggle:not(:checked) + .toggle-slider {
+        background-color: #333;
+    }
+    
+    /* Adjusting search and dropdown positioning */
+    .search-bar {
+        position: absolute;
+        top: 180px;
+        left: 72%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 5px;
+    }
+
+    /* Larger Input & Dropdowns */
+    .search-input, .actor-input {
+        width: 210px;
+        padding: 0px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background: #1b1b1d;
+        color: #fff;
+        height: 32px;
+        margin-top: -26px;
+        margin-left: 10px;
+    }
+
+    .actor-input {
+        width: 160px;
+        margin-left: -130px;
+    }
+
+    .genre-dropdown {
+        width: 120px;
+        padding: 0px;
+        font-size: 16px;
+        border-radius: 5px;
+        background: #1b1b1d;
+        color: #fff;
+        border: 1px solid #ccc;
+        height: 32px;
+        margin-top: 20px;
+        margin-left: -90px;
+    }
+
+    .year-dropdown {
+        width: 90px; 
+        padding: 0px;
+        font-size: 14px;
+        border-radius: 5px;
+        background: #1b1b1d;
+        color: #fff;
+        border: 1px solid #ccc;
+        margin-top: 20px;
+    }
+
+    .limited-size {
+        max-height: 32px;
+        overflow-y: auto;
+    }
+    
+    /* Light Mode */
+    .light-header .search-input,
+    .light-header .genre-dropdown,
+    .light-header .year-dropdown,
+    .light-header .actor-input {
+        background: #fff;
+        color: #000;
+        border: 1px solid #666;
+    }
+    
+    /* Header Description Styling */
+    .header-description {
+        position: absolute;
+        top: 16px;
+        left: 38px;
+        text-align: left;
+        z-index: 20;
+    }
+    
+    /* First Part */
+    .header-text {
+        font-size: 22px;
+        font-family: 'Dancing Script', cursive;
+        font-weight: lighter;
+        color: white;
+        letter-spacing: 2px;
+    }
+    
+    /* Movies/TV Shows Dropdown */
+    .type-dropdown {
+        width: 150px; /* Same as genre dropdown */
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 5px;
+        background: #1b1b1d;
+        color: #fff;
+        border: 1px solid #ccc;
+    }
+    
+    /* Light Mode for Movies/TV Shows Dropdown */
+    .light-header .type-dropdown {
+        background: #fff;
+        color: #000;
+        border: 1px solid #666;
+    }
 }
 
-.type-dropdown::-webkit-scrollbar-track {
-    background: #414144;
-    border-radius: 5px;
+
+
+/* ----------------------------------------------------- MEDIA QUERIES ---------------------------------------------------------------------------  */
+
+
+
+/* Larger Tablets / Small Laptops: 1024px and up */
+@media screen and (min-width: 1024px) {
+    .header-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 50px;
+        height: 140px;
+        transition: background-color 0.3s ease-in-out;
+    }
+    
+    /* Light Mode Header */
+    .light-header {
+        background-color: #1b1b1d;
+    }
+    
+    /* Dark Mode Header */
+    .dark-header {
+        background-color: rgb(0, 0, 0);
+    }
+    
+    /* Clapperboard Image */
+    .clapperboard {
+        width: 360px;
+        height: 180px;
+        position: relative;
+        margin-left: 70px;
+        margin-top: 160px;
+        z-index: 1;
+    }
+    
+    /* Title Container */
+    .title-container {
+        position: absolute;
+        top: 50px;
+        left: 50px;
+        text-align: left;
+        z-index: 10;
+    }
+    
+    /* "Take 5" Styling */
+    .title {
+        font-size: 80px;
+        font-family: 'Bubblegum Sans', sans-serif;
+        font-weight: bold;
+        position: relative;
+        margin-top: 40px;
+        margin-left: 20px;
+        color: rgb(78, 78, 78);
+        transform: rotate(-10deg);
+        z-index: 20;
+    }
+    
+    /* "Movies" Styling */
+    .subtitle {
+        font-size: 120px;
+        font-weight: lighter;
+        color: rgb(9, 162, 223);
+        margin-top: -120px;
+        margin-left: -40px;
+        font-family: 'Dancing Script', cursive;
+        transform: rotate(-10deg);
+        z-index: 20;
+    }
+    
+    /* Top Right Controls (Login + Theme Toggle) */
+    .top-right-controls {
+        position: absolute;
+        top: 20px;
+        right: 15px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+    
+    .animated-border-wrapper {
+        display: inline-block;
+        position: relative;
+    }
+      
+    .animated-border {
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        cursor: pointer;
+        width: 100%;
+        min-width: 120px;
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+        padding: 5px 10px;
+        height: 32px;
+        border-radius: 6px;
+        background: #141518;
+        color: #fff;
+        font-size: 12px;
+    }
+      
+      /* Conic gradient */
+    .animated-border-effect {
+        pointer-events: none;
+        border-radius: 6px;
+        width: calc(100% - 1px);
+        height: calc(100% - 1px);
+        position: absolute;
+        padding: 1px;
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: exclude;
+        mask-composite: exclude;
+        -webkit-mask-composite: xor;
+    }
+      
+    .animated-border-effect div {
+        background-image: conic-gradient(from 0 at 50% 50%, rgba(255, 255, 255, .5) 0deg, rgba(255, 255, 255, 0) 60deg, rgba(255, 255, 255, 0) 310deg, rgba(255, 255, 255, .5) 360deg);
+        position: relative;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        width: 100%;
+        animation: rotate 2s linear infinite;
+        aspect-ratio: 1;
+    }
+      
+    @keyframes rotate {
+        from {
+            transform: translate(-50%, -50%) scale(1.4) rotate(0turn);
+        }
+      
+        to {
+            transform: translate(-50%, -50%) scale(1.4) rotate(1turn);
+        }
+    }
+    
+    /* Theme Toggle */
+    .theme-toggle {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    /* Sun and Moon Icons */
+    .sun-icon, .moon-icon {
+        font-size: 18px;
+        color: rgb(255, 255, 255);
+    }
+    
+    /* Custom Toggle Switch */
+    .theme-toggle input {
+        display: none;
+    }
+    
+    /* Toggle Wrapper */
+    .toggle-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+    }
+    
+    /* Toggle Background */
+    .toggle-slider {
+        width: 40px;
+        height: 15px;
+        background-color: grey;
+        border-radius: 25px;
+        position: relative;
+        transition: background 0.3s ease-in-out;
+    }
+    
+    /* Toggle Circle */
+    .toggle-slider::before {
+        content: "";
+        width: 10px;
+        height: 10px;
+        background-color: white;
+        border-radius: 50%;
+        position: absolute;
+        left: 5px;
+        top: 2.5px;
+        transition: 0.3s ease-in-out;
+    }
+    
+    /* Move Toggle Circle When Checked */
+    .theme-toggle input:checked + .toggle-slider::before {
+        left: 25px;
+    }
+    
+    /* Light Mode */
+    .theme-toggle input:checked + .toggle-slider {
+        background-color: #2c2d30;
+    }
+    
+    /* Dark Mode */
+    .theme-toggle:not(:checked) + .toggle-slider {
+        background-color: #333;
+    }
+    
+    /* Adjusting search and dropdown positioning */
+    .search-bar {
+        position: absolute;
+        top: 180px;
+        left: 72%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 5px;
+    }
+
+    /* Larger Input & Dropdowns */
+    .search-input, .actor-input {
+        width: 210px;
+        padding: 0px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background: #1b1b1d;
+        color: #fff;
+        height: 32px;
+        margin-top: -26px;
+        margin-left: 10px;
+    }
+
+    .actor-input {
+        width: 160px;
+        margin-left: -130px;
+    }
+
+    .genre-dropdown {
+        width: 120px;
+        padding: 0px;
+        font-size: 16px;
+        border-radius: 5px;
+        background: #1b1b1d;
+        color: #fff;
+        border: 1px solid #ccc;
+        height: 32px;
+        margin-top: 20px;
+        margin-left: -90px;
+    }
+
+    .year-dropdown {
+        width: 90px; 
+        padding: 0px;
+        font-size: 14px;
+        border-radius: 5px;
+        background: #1b1b1d;
+        color: #fff;
+        border: 1px solid #ccc;
+        margin-top: 20px;
+    }
+
+    .limited-size {
+        max-height: 32px;
+        overflow-y: auto;
+    }
+    
+    /* Light Mode */
+    .light-header .search-input,
+    .light-header .genre-dropdown,
+    .light-header .year-dropdown,
+    .light-header .actor-input {
+        background: #fff;
+        color: #000;
+        border: 1px solid #666;
+    }
+    
+    /* Header Description Styling */
+    .header-description {
+        position: absolute;
+        top: 16px;
+        left: 38px;
+        text-align: left;
+        z-index: 20;
+    }
+    
+    /* First Part */
+    .header-text {
+        font-size: 22px;
+        font-family: 'Dancing Script', cursive;
+        font-weight: lighter;
+        color: white;
+        letter-spacing: 2px;
+    }
+    
+    /* Movies/TV Shows Dropdown */
+    .type-dropdown {
+        width: 150px; /* Same as genre dropdown */
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 5px;
+        background: #1b1b1d;
+        color: #fff;
+        border: 1px solid #ccc;
+    }
+    
+    /* Light Mode for Movies/TV Shows Dropdown */
+    .light-header .type-dropdown {
+        background: #fff;
+        color: #000;
+        border: 1px solid #666;
+    }
 }
 
-.type-dropdown::-webkit-scrollbar-thumb {
-    background: linear-gradient(45deg, #09a2df, #6c757d);
-    border-radius: 5px;
-}
 
-.type-dropdown::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(45deg, #0677a7, #4a5257);
+
+
+/* ----------------------------------------------------- MEDIA QUERIES ---------------------------------------------------------------------------  */
+
+
+
+
+/* Desktops & Large Screens: 1280px and up */
+@media screen and (min-width: 1280px) {
+    .header-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 50px;
+        height: 140px;
+        transition: background-color 0.3s ease-in-out;
+    }
+    
+    /* Light Mode Header */
+    .light-header {
+        background-color: #1b1b1d;
+    }
+    
+    /* Dark Mode Header */
+    .dark-header {
+        background-color: rgb(0, 0, 0);
+    }
+    
+    /* Clapperboard Image */
+    .clapperboard {
+        width: 600px;
+        height: 260px;
+        position: relative;
+        margin-left: 210px;
+        margin-top: 130px;
+        z-index: 1;
+    }
+    
+    /* Title Container */
+    .title-container {
+        position: absolute;
+        top: -100px;
+        left: 50px;
+        text-align: left;
+        z-index: 10;
+    }
+    
+    /* "Take 5" Styling */
+    .title {
+        font-size: 100px;
+        font-family: 'Bubblegum Sans', sans-serif;
+        font-weight: bold;
+        position: relative;
+        margin-top: 140px;
+        margin-left: 46px;
+        color: rgb(78, 78, 78);
+        transform: rotate(-10deg);
+        z-index: 10;
+    }
+    
+    /* "Movies" Styling */
+    .subtitle {
+        font-size: 200px;
+        font-weight: lighter;
+        color: rgb(9, 162, 223);
+        margin-top: -185px;
+        margin-left: -40px;
+        font-family: 'Dancing Script', cursive;
+        transform: rotate(-10deg);
+        z-index: 0;
+    }
+    
+    /* Top Right Controls (Login + Theme Toggle) */
+    .top-right-controls {
+        position: absolute;
+        top: 20px;
+        right: 40px;
+        display: flex;
+        align-items: center;
+        gap: 40px;
+    }
+    
+    .animated-border-wrapper {
+        display: inline-block;
+        position: relative;
+    }
+      
+    .animated-border {
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        cursor: pointer;
+        width: 100%;
+        min-width: 140px;
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+        padding: 5px 10px;
+        height: 40px;
+        border-radius: 6px;
+        background: #141518;
+        color: #fff;
+        font-size: 14px;
+    }
+      
+      /* Conic gradient */
+    .animated-border-effect {
+        pointer-events: none;
+        border-radius: 6px;
+        width: calc(100% - 1px);
+        height: calc(100% - 1px);
+        position: absolute;
+        padding: 1px;
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: exclude;
+        mask-composite: exclude;
+        -webkit-mask-composite: xor;
+    }
+      
+    .animated-border-effect div {
+        background-image: conic-gradient(from 0 at 50% 50%, rgba(255, 255, 255, .5) 0deg, rgba(255, 255, 255, 0) 60deg, rgba(255, 255, 255, 0) 310deg, rgba(255, 255, 255, .5) 360deg);
+        position: relative;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        width: 100%;
+        animation: rotate 2s linear infinite;
+        aspect-ratio: 1;
+    }
+      
+    @keyframes rotate {
+        from {
+            transform: translate(-50%, -50%) scale(1.4) rotate(0turn);
+        }
+      
+        to {
+            transform: translate(-50%, -50%) scale(1.4) rotate(1turn);
+        }
+    }
+    
+    /* Theme Toggle */
+    .theme-toggle {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    /* Sun and Moon Icons */
+    .sun-icon, .moon-icon {
+        font-size: 16px;
+        color: rgb(255, 255, 255);
+    }
+    
+    /* Custom Toggle Switch */
+    .theme-toggle input {
+        display: none;
+    }
+    
+    /* Toggle Wrapper */
+    .toggle-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+    }
+    
+    /* Toggle Background */
+    .toggle-slider {
+        width: 40px;
+        height: 20px;
+        background-color: grey;
+        border-radius: 25px;
+        position: relative;
+        transition: background 0.3s ease-in-out;
+    }
+    
+    /* Toggle Circle */
+    .toggle-slider::before {
+        content: "";
+        width: 16px;
+        height: 16px;
+        background-color: white;
+        border-radius: 50%;
+        position: absolute;
+        left: 5px;
+        top: 2px;
+        transition: 0.3s ease-in-out;
+    }
+    
+    /* Move Toggle Circle When Checked */
+    .theme-toggle input:checked + .toggle-slider::before {
+        left: 25px;
+    }
+    
+    /* Light Mode */
+    .theme-toggle input:checked + .toggle-slider {
+        background-color: #2c2d30;
+    }
+    
+    /* Dark Mode */
+    .theme-toggle:not(:checked) + .toggle-slider {
+        background-color: #333;
+    }
+    
+    /* Adjusting search and dropdown positioning */
+    .search-bar {
+        position: absolute;
+        top: 210px;
+        left: 72%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 12px;
+    }
+    
+    /* Larger Input & Dropdowns */
+    .search-input, .actor-input {
+        width: 320px;
+        padding: 2px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background: #1b1b1d;
+        color: #fff;
+    }
+    
+    .actor-input {
+        width: 240px;
+        margin-left: 10px;
+    }
+    
+    .genre-dropdown {
+        width: 180px;
+        height: 36px;
+        padding: 6px;
+        font-size: 16px;
+        border-radius: 5px;
+        background: #1b1b1d;
+        color: #fff;
+        border: 1px solid #ccc;
+        margin-left: 10px;
+        margin-top: -25px;
+    }
+    
+    .year-dropdown {
+        width: 150px; 
+        height: 36px;
+        padding: 2px;
+        font-size: 16px;
+        border-radius: 5px;
+        background: #1b1b1d;
+        color: #fff;
+        border: 1px solid #ccc;
+        margin-top: -25px;
+        margin-left: 10px;
+    }
+    
+    .limited-size {
+        max-height: 40px;
+        overflow-y: auto;
+    }
+    
+    /* Light Mode */
+    .light-header .search-input,
+    .light-header .genre-dropdown,
+    .light-header .year-dropdown,
+    .light-header .actor-input {
+        background: #fff;
+        color: #000;
+        border: 1px solid #666;
+    }
+    
+    /* Header Description Styling */
+    .header-description {
+        position: absolute;
+        top: 30px;
+        left: 720px;
+        text-align: left;
+        z-index: 20;
+    }
+    
+    /* First Part */
+    .header-text {
+        font-size: 42px;
+        font-family: 'Dancing Script', cursive;
+        font-weight: lighter;
+        color: white;
+        letter-spacing: 2px;
+    }
+    
+    /* Movies/TV Shows Dropdown */
+    .type-dropdown {
+        width: 150px; /* Same as genre dropdown */
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 5px;
+        background: #1b1b1d;
+        color: #fff;
+        border: 1px solid #ccc;
+    }
+    
+    /* Light Mode for Movies/TV Shows Dropdown */
+    .light-header .type-dropdown {
+        background: #fff;
+        color: #000;
+        border: 1px solid #666;
+    }
 }

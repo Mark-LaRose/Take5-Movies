@@ -1,27 +1,19 @@
-.sidebar {
-    border-right: 4px solid black;
-    width: 290px;
-    height: 100vh;
-    background-color: transparent;
-    margin-top: -40px;
-    padding-left: 20px;
-}
-
 .favorites-title {
     color: #000000;
     text-shadow: 2px 2px 4px #00aaff;
-    font-size: 84px;
+    font-size: 34px;
     font-family: 'Dancing Script', cursive;
     font-weight: bold;
-    margin-top: 160px;
+    margin-top: 290px;
+    margin-left: 15px;
 }
 
 .favorites-divider {
     width: 120%;
-    height: 4px;
+    height: 2px;
     background-color: black;
-    margin-top: -140px;
-    margin-left: -5%;
+    margin-top: -365px;
+    margin-left: -2%;
 }
 
 /* Favorite Lists Container */
@@ -30,14 +22,14 @@
     padding-left: 15px;
 }
 
-/* Updated Favorites Item Styling (Now Draggable) */
+/* Updated Favorites Item Styling */
 .favorites-item {
     display: flex;
     align-items: center;
     justify-content: start;
-    gap: 10px;
-    padding: 12px;
-    font-size: 20px;
+    gap: 0px;
+    padding: 0px;
+    font-size: 10px;
     font-weight: bold;
     cursor: grab; /* Cursor indicates draggable */
     background: #131313;
@@ -45,8 +37,9 @@
     border: 3px solid black;
     border-radius: 8px;
     transition: all 0.3s ease-in-out;
-    margin-top: 10px;
-    width: 80%;
+    margin-top: 2px;
+    width: 35%;
+    margin-left: 5px;
 }
 
 /* Dragging State - Highlight effect */
@@ -64,20 +57,20 @@
 /* Star Icon (Now Dimmed by Default, Highlighted When Selected) */
 .star-icon {
     margin-right: 10px;
-    font-size: 32px;
-    opacity: 0.4; /* ✅ Default dimmed */
+    font-size: 12px;
+    opacity: 0.4;
     transition: opacity 0.2s ease-in-out;
 }
 
 .star-icon.active {
-    opacity: 1; /* ✅ Highlighted when active */
+    opacity: 1;
 }
 
 /* Editable Favorite List Names */
 .favorites-name-input {
     border: none;
-    background: transparent; /* ✅ No white box */
-    font-size: 20px; /* ✅ Keep text size normal */
+    background: transparent;
+    font-size: 20px;
     font-weight: bold;
     color: white;
     width: 80%;
@@ -98,4 +91,499 @@
     text-align: center;
     margin-top: 200px;
     font-style: italic;
+}
+
+.welcome-text {
+    font-size: 36px;
+    font-family: 'Dancing Script', cursive;
+    font-weight: bold;
+    margin-top: -340px;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    margin-left: 140px;
+}
+
+/* Centers username */
+.user-name {
+    font-size: 36px;
+    font-family: 'Dancing Script', cursive;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    margin-top: -40px;
+    margin-left: 140px;
+}
+
+/* Centers the app description */
+.app-description {
+    font-size: 12px;
+    font-family: 'Times New Roman', serif;
+    color: #000000;
+    text-align: center;
+    margin-top: -60px;
+    padding: 0 15px;
+    margin-left: 140px;
+    margin-right: 20px;
+}
+
+/* Hide app description when not logged in */
+.user-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 80px;
+}
+
+
+
+
+/* ----------------------------------------------------- MEDIA QUERIES ---------------------------------------------------------------------------  */
+
+
+
+/* Tablets: 768px and up */
+@media screen and (min-width: 768px) {
+    .sidebar {
+        border-right: 3px solid black;
+        width: 240px;
+        height: 240vh;
+        background-color: transparent;
+        margin-top: -70px;
+        padding-left: 20px;
+    }
+    
+    .favorites-title {
+        color: #000000;
+        text-shadow: 2px 2px 4px #00aaff;
+        font-size: 64px;
+        font-family: 'Dancing Script', cursive;
+        font-weight: bold;
+        margin-top: 160px;
+    }
+    
+    .favorites-divider {
+        width: 110%;
+        height: 2px;
+        background-color: black;
+        margin-top: -100px;
+        margin-left: -5%;
+    }
+    
+    /* Favorite Lists Container */
+    .favorites-list {
+        margin-top: 40px;
+        padding-left: 15px;
+    }
+    
+    /* Updated Favorites Item Styling (Now Draggable) */
+    .favorites-item {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        gap: 10px;
+        padding: 12px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: grab; /* Cursor indicates draggable */
+        background: #131313;
+        color: white;
+        border: 3px solid black;
+        border-radius: 8px;
+        transition: all 0.3s ease-in-out;
+        margin-top: 10px;
+        width: 78%;
+        height: 20px;
+    }
+    
+    /* Dragging State - Highlight effect */
+    .favorites-item:active {
+        cursor: grabbing;
+        opacity: 0.8;
+    }
+    
+    /* Hover Effect - White Glow */
+    .favorites-item:hover {
+        box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.6);
+        transform: scale(1.05);
+    }
+    
+    /* Star Icon (Now Dimmed by Default, Highlighted When Selected) */
+    .star-icon {
+        margin-right: 10px;
+        font-size: 28px;
+        opacity: 0.4;
+        transition: opacity 0.2s ease-in-out;
+    }
+    
+    .star-icon.active {
+        opacity: 1;
+    }
+    
+    /* Editable Favorite List Names */
+    .favorites-name-input {
+        border: none;
+        background: transparent;
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+        width: 80%;
+        outline: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    /* Optional: Small underline effect when renaming */
+    .favorites-name-input:focus {
+        border-bottom: 2px solid white;
+    }
+    
+    /* Login Message */
+    .login-message {
+        font-size: 30px;
+        color: rgb(0, 0, 0);
+        text-align: center;
+        margin-top: 200px;
+        font-style: italic;
+    }
+    
+    .welcome-text {
+        font-size: 46px;
+        font-family: 'Dancing Script', cursive;
+        font-weight: bold;
+        margin-top: -40px;
+        color: rgb(0, 0, 0);
+        text-align: center;
+        margin-left: 5px;
+    }
+    
+    /* Centers username */
+    .user-name {
+        font-size: 46px;
+        font-family: 'Dancing Script', cursive;
+        font-weight: bold;
+        color: rgb(0, 0, 0);
+        text-align: center;
+        margin-top: -30px;
+        margin-left: 5px;
+    }
+    
+    /* Centers the app description */
+    .app-description {
+        font-size: 22px;
+        font-family: 'Times New Roman', serif;
+        color: #000000;
+        text-align: center;
+        margin-top: -30px;
+        padding: 0 15px;
+        margin-left: 5px;
+    }
+    
+    /* Hide app description when not logged in */
+    .user-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 80px;
+    }
+}
+
+
+
+/* ----------------------------------------------------- MEDIA QUERIES ---------------------------------------------------------------------------  */
+
+
+
+/* Larger Tablets / Small Laptops: 1024px and up */
+@media screen and (min-width: 1024px) {
+    .sidebar {
+        border-right: 3px solid black;
+        width: 240px;
+        height: 240vh;
+        background-color: transparent;
+        margin-top: -70px;
+        padding-left: 20px;
+    }
+    
+    .favorites-title {
+        color: #000000;
+        text-shadow: 2px 2px 4px #00aaff;
+        font-size: 64px;
+        font-family: 'Dancing Script', cursive;
+        font-weight: bold;
+        margin-top: 160px;
+    }
+    
+    .favorites-divider {
+        width: 110%;
+        height: 2px;
+        background-color: black;
+        margin-top: -100px;
+        margin-left: -5%;
+    }
+    
+    /* Favorite Lists Container */
+    .favorites-list {
+        margin-top: 40px;
+        padding-left: 15px;
+    }
+    
+    /* Updated Favorites Item Styling (Now Draggable) */
+    .favorites-item {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        gap: 10px;
+        padding: 12px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: grab; /* Cursor indicates draggable */
+        background: #131313;
+        color: white;
+        border: 3px solid black;
+        border-radius: 8px;
+        transition: all 0.3s ease-in-out;
+        margin-top: 10px;
+        width: 78%;
+        height: 20px;
+    }
+    
+    /* Dragging State - Highlight effect */
+    .favorites-item:active {
+        cursor: grabbing;
+        opacity: 0.8;
+    }
+    
+    /* Hover Effect - White Glow */
+    .favorites-item:hover {
+        box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.6);
+        transform: scale(1.05);
+    }
+    
+    /* Star Icon (Now Dimmed by Default, Highlighted When Selected) */
+    .star-icon {
+        margin-right: 10px;
+        font-size: 28px;
+        opacity: 0.4;
+        transition: opacity 0.2s ease-in-out;
+    }
+    
+    .star-icon.active {
+        opacity: 1;
+    }
+    
+    /* Editable Favorite List Names */
+    .favorites-name-input {
+        border: none;
+        background: transparent;
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+        width: 80%;
+        outline: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    /* Optional: Small underline effect when renaming */
+    .favorites-name-input:focus {
+        border-bottom: 2px solid white;
+    }
+    
+    /* Login Message */
+    .login-message {
+        font-size: 30px;
+        color: rgb(0, 0, 0);
+        text-align: center;
+        margin-top: 200px;
+        font-style: italic;
+    }
+    
+    .welcome-text {
+        font-size: 46px;
+        font-family: 'Dancing Script', cursive;
+        font-weight: bold;
+        margin-top: -40px;
+        color: rgb(0, 0, 0);
+        text-align: center;
+        margin-left: 5px;
+    }
+    
+    /* Centers username */
+    .user-name {
+        font-size: 46px;
+        font-family: 'Dancing Script', cursive;
+        font-weight: bold;
+        color: rgb(0, 0, 0);
+        text-align: center;
+        margin-top: -30px;
+        margin-left: 5px;
+    }
+    
+    /* Centers the app description */
+    .app-description {
+        font-size: 22px;
+        font-family: 'Times New Roman', serif;
+        color: #000000;
+        text-align: center;
+        margin-top: -30px;
+        padding: 0 15px;
+        margin-left: 5px;
+    }
+    
+    /* Hide app description when not logged in */
+    .user-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 80px;
+    }
+}
+
+
+/* ----------------------------------------------------- MEDIA QUERIES ---------------------------------------------------------------------------  */
+
+
+
+/* Desktops & Large Screens: 1280px and up */
+@media screen and (min-width: 1280px) {
+    .sidebar {
+        border-right: 3px solid black;
+        width: 240px;
+        height: 190vh;
+        background-color: transparent;
+        margin-top: 40px;
+        padding-left: 20px;
+        z-index: 50;
+    }
+    
+    .favorites-title {
+        color: #000000;
+        text-shadow: 2px 2px 4px #00aaff;
+        font-size: 64px;
+        font-family: 'Dancing Script', cursive;
+        font-weight: bold;
+        margin-top: 120px;
+    }
+    
+    .favorites-divider {
+        width: 120%;
+        height: 2px;
+        background-color: black;
+        margin-top: -110px;
+        margin-left: -5%;
+    }
+    
+    /* Favorite Lists Container */
+    .favorites-list {
+        margin-top: 40px;
+        padding-left: 15px;
+    }
+    
+    /* Updated Favorites Item Styling (Now Draggable) */
+    .favorites-item {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        gap: 10px;
+        padding: 12px;
+        font-size: 17px;
+        font-weight: bold;
+        cursor: grab; /* Cursor indicates draggable */
+        background: #131313;
+        color: white;
+        border: 3px solid black;
+        border-radius: 8px;
+        transition: all 0.3s ease-in-out;
+        margin-top: 10px;
+        width: 80%;
+        z-index: 100;
+    }
+    
+    /* Dragging State - Highlight effect */
+    .favorites-item:active {
+        cursor: grabbing;
+        opacity: 0.8;
+    }
+    
+    /* Hover Effect - White Glow */
+    .favorites-item:hover {
+        box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.6);
+        transform: scale(1.05);
+    }
+    
+    /* Star Icon (Now Dimmed by Default, Highlighted When Selected) */
+    .star-icon {
+        margin-right: 10px;
+        font-size: 28px;
+        opacity: 0.4;
+        transition: opacity 0.2s ease-in-out;
+    }
+    
+    .star-icon.active {
+        opacity: 1;
+    }
+    
+    /* Editable Favorite List Names */
+    .favorites-name-input {
+        border: none;
+        background: transparent;
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+        width: 80%;
+        outline: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    /* Optional: Small underline effect when renaming */
+    .favorites-name-input:focus {
+        border-bottom: 2px solid white;
+    }
+    
+    /* Login Message */
+    .login-message {
+        font-size: 30px;
+        color: rgb(0, 0, 0);
+        text-align: center;
+        margin-top: 200px;
+        font-style: italic;
+    }
+    
+    .welcome-text {
+        font-size: 56px;
+        font-family: 'Dancing Script', cursive;
+        font-weight: bold;
+        margin-top: -40px;
+        color: rgb(0, 0, 0);
+        text-align: center;
+    }
+    
+    /* Centers username */
+    .user-name {
+        font-size: 56px;
+        font-family: 'Dancing Script', cursive;
+        font-weight: bold;
+        color: rgb(0, 0, 0);
+        text-align: center;
+        margin-top: -50px;
+    }
+    
+    /* Centers the app description */
+    .app-description {
+        font-size: 22px;
+        font-family: 'Times New Roman', serif;
+        color: #000000;
+        text-align: center;
+        margin-top: -70px;
+        padding: 0 15px;
+    }
+    
+    /* Hide app description when not logged in */
+    .user-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 80px;
+    }
 }

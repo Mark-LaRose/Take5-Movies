@@ -20,7 +20,6 @@ export const fetchContent = async (selectedType = "movie", page = 1, searchQuery
       }
     }
 
-    // Handle Actor Search (Convert Name to Actor ID)
     if (actorQuery) {
       const actorResponse = await axios.get(`${BASE_URL}/search/person`, {
         params: { api_key: API_KEY, query: actorQuery },
@@ -35,13 +34,12 @@ export const fetchContent = async (selectedType = "movie", page = 1, searchQuery
     const response = await axios.get(url);
     return response.data.results.map(item => ({
       id: item.id,
-      title: item.title || item.name, // Use `name` for TV shows
+      title: item.title || item.name,
       release_date: item.release_date || item.first_air_date || "N/A",
       poster_path: item.poster_path,
-      overview: item.overview || "No description available.", // **Added this line to include descriptions**
+      overview: item.overview || "No description available.",
     }));
   } catch (error) {
-    console.error(`Error fetching ${selectedType === "movie" ? "movies" : "TV shows"}:`, error);
     return [];
   }
 };

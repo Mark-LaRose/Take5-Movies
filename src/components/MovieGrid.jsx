@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "../styles/moviegrid.css";
 import MovieModal from "./MovieModal";
-import axios from "axios";
 
 const MovieGrid = ({ movies, setCurrentPage, currentPage }) => {
   const [selectedMovie, setSelectedMovie] = useState(null);
@@ -30,7 +29,6 @@ const MovieGrid = ({ movies, setCurrentPage, currentPage }) => {
         )}
       </div>
 
-      {/* Pagination Hidden when showing favorites */}
       {currentPage && (
         <div className="pagination-controls">
           <button onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))} disabled={currentPage === 1}>

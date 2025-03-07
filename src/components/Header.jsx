@@ -10,40 +10,25 @@ function Header({
 }) {
   const { loginWithPopup, logout, isAuthenticated, getAccessTokenSilently } = useAuth0();
 
-  // Log login action
   const handleLogin = () => {
-    console.log("Login button clicked");
-  
     loginWithPopup()
       .then(async () => {
-        console.log("Login successful");
-  
-        // Fetch the user's Auth0 token
         const userToken = await getAccessTokenSilently({
           audience: "https://dev-pp4hwzpv0zmbbko2.us.auth0.com/api/v2/",
           scope: "read:current_user",
         });
-        console.log("User token received:", userToken);
-  
-        // Store token in localStorage ✅
+
         localStorage.setItem("token", userToken);
-  
-        // Toggle login state
         toggleLogin();
       })
-      .catch(error => {
-        console.error("Login failed:", error);
-      });
+      .catch(() => {});
   };
 
-  // Log logout action
   const handleLogout = () => {
-    console.log("Logout button clicked");
     logout({ returnTo: window.location.origin });
     toggleLogin();
   };
 
-  // Genre List Based on Selection (Movies or TV Shows)
   const genreOptions = selectedType === "movie" ? [
     { value: "28", label: "Action" },
     { value: "12", label: "Adventure" },
@@ -82,32 +67,20 @@ function Header({
     { value: "37", label: "Western" }
   ];
 
-  // Blocked Words Regex Filter
   const blockedWordsRegex = /(porn|porno|xxx|xx|adult|erotic|sex|hentai|lesb|homo)/i;
 
   return (
     <header className={`header-container ${isDarkMode ? "dark-header" : "light-header"}`}>
-      {/* Title & Clapperboard */}
       <div className="title-container">
         <h1 className="title">Take 5</h1>
         <h2 className="subtitle">Movies</h2>
       </div>
       <img src="/images/ClapperBoard.png" alt="Clapperboard" className="clapperboard" />
       <div className="header-description">
-        <p className="header-text">Your one-stop spot for everything Movies & Television!</p>
+        <p className="header-text">Your one-stop spot for everything Movies!</p>
       </div>
 
-      {/* Search Bar */}
       <div className="search-bar">
-        {/* Type Selection (Movies / TV Shows) */}
-        <select className="type-dropdown" onChange={(e) => {
-          setSelectedType(e.target.value);
-          console.log("Selected Type:", e.target.value); // Log selected type
-        }}>
-          <option value="movie">Movies</option>
-          <option value="tv">TV Shows</option>
-        </select>
-
         <input
           type="text"
           placeholder={selectedType === "movie" ? "Search Movies..." : "Search TV Shows..."}
@@ -118,17 +91,14 @@ function Header({
 
             if (!containsBlockedWord) {
               setSearchQuery(e.target.value);
-              console.log("Search Query Updated:", e.target.value); // Log search query
             } else {
-              setSearchQuery("");  // Clears search if blocked word is detected
+              setSearchQuery("");
             }
           }}
         />
 
-        {/* Genre Selection */}
         <select className="genre-dropdown" onChange={(e) => {
           setSelectedGenre(e.target.value);
-          console.log("Selected Genre:", e.target.value); // Log selected genre
         }}>
           <option value="">Genre</option>
           {genreOptions.map((genre) => (
@@ -136,10 +106,8 @@ function Header({
           ))}
         </select>
 
-        {/* Year Selection */}
         <select className="year-dropdown limited-size" onChange={(e) => {
           setSelectedYear(e.target.value);
-          console.log("Selected Year:", e.target.value); // Log selected year
         }}>
           <option value="">Year</option>
           {Array.from({ length: 80 }, (_, i) => {
@@ -148,21 +116,17 @@ function Header({
           })}
         </select>
 
-        {/* Actor Search */}
         <input
           type="text"
           placeholder="Search by Actor/Actress..."
           className="actor-input"
           onChange={(e) => {
             setActorQuery(e.target.value);
-            console.log("Actor Search Query Updated:", e.target.value); // Log actor search query
           }}
         />
       </div>
 
-      {/* Top Right Controls (Login & Theme Toggle) */}
       <div className="top-right-controls">
-        {/* Animated Login Button */}
         <div className="animated-border-wrapper">
           <div className="animated-border-effect">
             <div></div>
@@ -172,7 +136,6 @@ function Header({
           </button>
         </div>
 
-        {/* Theme Toggle */}
         <div className="theme-toggle">
           <BsSun className="sun-icon" />
           <label className="toggle-wrapper">

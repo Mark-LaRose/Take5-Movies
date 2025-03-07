@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { FaStar } from 'react-icons/fa';
+import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
 import '../styles/sidebar.css';
 
-// ✅ Generates consistent colors for favorite lists
+// Generates consistent colors for favorite lists
 const getStarColor = (index) => {
   const colors = [
     'deepskyblue', 'teal', 'lime', 'purple', 'indigo', 'royalblue',
@@ -14,6 +15,7 @@ const getStarColor = (index) => {
 };
 
 function Sidebar({ isLoggedIn, onSelectFavoritesList }) {
+  const { user, isAuthenticated } = useAuth0();
   const [favorites, setFavorites] = useState([]);
   const [selectedListIndex, setSelectedListIndex] = useState(null);
 
@@ -23,7 +25,7 @@ function Sidebar({ isLoggedIn, onSelectFavoritesList }) {
     }
   }, [isLoggedIn]);
 
-  // ✅ Fetch favorite lists from MongoDB
+  // Fetch favorite lists from MongoDB
   const fetchFavorites = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -36,12 +38,10 @@ function Sidebar({ isLoggedIn, onSelectFavoritesList }) {
       if (response.data.success) {
         setFavorites(response.data.favorites);
       }
-    } catch (error) {
-      console.error("❌ Error fetching favorites:", error);
-    }
+    } catch (error) {}
   };
 
-  // ✅ Handle renaming favorite lists
+  // Handle renaming favorite lists
   const renameFavoriteList = async (index, newName) => {
     const updatedFavorites = [...favorites];
     updatedFavorites[index].name = newName;
@@ -56,14 +56,10 @@ function Sidebar({ isLoggedIn, onSelectFavoritesList }) {
         { index, newName },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-
-      console.log(`✅ Renamed favorites list ${index + 1} to "${newName}"`);
-    } catch (error) {
-      console.error("❌ Error renaming favorite list:", error);
-    }
+    } catch (error) {}
   };
 
-  // ✅ Handle selecting a favorite list
+  // Handle selecting a favorite list
   const handleSelectList = (index) => {
     if (selectedListIndex === index) {
       setSelectedListIndex(null);
@@ -80,7 +76,7 @@ function Sidebar({ isLoggedIn, onSelectFavoritesList }) {
       <div className="favorites-divider"></div>
 
       {isLoggedIn ? (
-        <div>
+        <div className="favorites-container">
           {favorites.map((list, index) => (
             <div
               key={index}
@@ -99,11 +95,26 @@ function Sidebar({ isLoggedIn, onSelectFavoritesList }) {
       ) : (
         <p className="login-message">Login to access favorites.</p>
       )}
+
+      {isAuthenticated && user && (
+        <div className="user-section">
+          <p className="welcome-text">Welcome!</p>
+          <h5 className="user-name">{user.name}</h5>
+          <p className="app-description">
+            Take 5 Movies lets you browse and preview movies from all types of genres and collections. 
+            From Comedy, Romance, and Action to History and Horror movies. Save all of your favorites to show your friends, 
+            or refer back to later so you never forget all those memorable shows. 
+            To rename your favorites lists just double-click its title. 
+            Also, discover upcoming and trending content effortlessly. 
+            Get the popcorn ready while you find your next favorite flick, Enjoy!
+          </p>
+        </div>
+      )}
     </Container>
   );
 }
 
-// ✅ Favorite List Item (Handles Editing & Display)
+// Favorite List Item (Handles Editing & Display)
 function FavoriteListItem({ list, index, selectedListIndex, renameFavoriteList }) {
   const [isEditing, setIsEditing] = useState(false);
   const [newName, setNewName] = useState(list.name);
@@ -113,8 +124,8 @@ function FavoriteListItem({ list, index, selectedListIndex, renameFavoriteList }
       <FaStar
         className="star-icon"
         style={{
-          color: getStarColor(index), // ✅ Correctly applies color based on list index
-          opacity: selectedListIndex === index ? 1 : 0.4, // ✅ Dimmed unless selected
+          color: getStarColor(index),
+          opacity: selectedListIndex === index ? 1 : 0.4,
           cursor: "pointer",
         }}
       />

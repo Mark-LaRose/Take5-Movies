@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import "../styles/moviemodal.css"; // Import modal styles
-import { FaStar, FaTimes } from "react-icons/fa"; // Star & Close icons
+import "../styles/moviemodal.css";
+import { FaStar, FaTimes } from "react-icons/fa";
 import YouTube from "react-youtube";
 import axios from "axios";
 
 const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
 
-// Define star colors (should match sidebar)
 const starColors = [
   "deepskyblue", "teal", "lime", "purple", "indigo", "royalblue", 
   "navy", "grey", "gold", "darkorange", "red", "magenta"
@@ -18,13 +17,12 @@ function MovieModal({ movie, isOpen, onClose, onAddToFavorites }) {
 
   useEffect(() => {
     if (movie && isOpen) {
-        setHighlightedStars([]); // ✅ Reset before fetching new data
+        setHighlightedStars([]);
         fetchTrailer(movie.id);
-        fetchFavorites(movie.id); // ✅ Ensure correct list highlighting
+        fetchFavorites(movie.id);
     }
-  }, [movie, isOpen]); // ✅ Runs when movie or modal state changes
+  }, [movie, isOpen]);
 
-  // Fetch Trailer
   const fetchTrailer = async (movieId) => {
     try {
       const response = await axios.get(
@@ -35,40 +33,29 @@ function MovieModal({ movie, isOpen, onClose, onAddToFavorites }) {
 
       setTrailer(officialTrailer ? officialTrailer.key : null);
     } catch (error) {
-      console.error("Error fetching trailer:", error);
       setTrailer(null);
     }
   };
 
-  // Fetch which favorite lists the movie is in
   const fetchFavorites = async (movieId) => {
     try {
         const token = localStorage.getItem("token");
         if (!token) return;
-
-        console.log(`📌 Fetching which lists contain movie: ${movieId}`);
 
         const response = await axios.get("http://localhost:5000/api/movies/favorites", {
             headers: { Authorization: `Bearer ${token}` },
         });
 
         if (response.data.success) {
-            console.log("✅ Full favorites response:", response.data.favorites);
-            
-            // Ensure correct mapping from favorites structure
             const movieInLists = response.data.favorites
                 .map((list, index) => list.movies.includes(String(movieId)) ? index : -1)
-                .filter(index => index !== -1); // ✅ Keep only valid indexes
+                .filter(index => index !== -1);
 
-            console.log(`🎬 Movie ${movieId} found in lists:`, movieInLists);
             setHighlightedStars(movieInLists);
         }
-    } catch (error) {
-        console.error("❌ Error fetching favorites:", error);
-    }
+    } catch (error) {}
   };
 
-  // Handle Star Click
   const handleStarClick = async (index) => {
     const isHighlighted = highlightedStars.includes(index);
     let updatedStars;
@@ -79,15 +66,13 @@ function MovieModal({ movie, isOpen, onClose, onAddToFavorites }) {
         updatedStars = [...highlightedStars, index];
     }
 
-    setHighlightedStars(updatedStars); // ✅ Immediate UI update
+    setHighlightedStars(updatedStars);
 
     try {
         const token = localStorage.getItem("token");
         if (!token) return;
 
-        console.log(`📌 Toggling movie ${movie.id} in list index: ${index}`);
-
-        const response = await axios.post(
+        await axios.post(
             "http://localhost:5000/api/movies/updateFavorites",
             {
                 movieId: movie.id,
@@ -96,27 +81,18 @@ function MovieModal({ movie, isOpen, onClose, onAddToFavorites }) {
             { headers: { Authorization: `Bearer ${token}` } }
         );
 
-        if (response.data.success) {
-            console.log("✅ Favorites updated successfully", response.data);
-            await fetchFavorites(movie.id); // ✅ Ensure stars update correctly
-        } else {
-            console.error("❌ Failed to update favorites", response.data);
-        }
-    } catch (error) {
-        console.error("❌ Error adding/removing from favorites:", error);
-    }
+        await fetchFavorites(movie.id);
+    } catch (error) {}
   };
 
-  if (!isOpen || !movie) return null; // Don't render if modal is closed
+  if (!isOpen || !movie) return null;
 
   return (
     <div className="movie-modal-overlay" onClick={onClose}>
       <div className="movie-modal" onClick={(e) => e.stopPropagation()}>
-        {/* Close Button */}
         <FaTimes className="close-button" onClick={onClose} />
 
         <div className="modal-content">
-          {/* Movie Image */}
           <div className="modal-image">
             <img 
               src={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : "/images/placeholder.png"} 
@@ -124,12 +100,10 @@ function MovieModal({ movie, isOpen, onClose, onAddToFavorites }) {
             />
           </div>
 
-          {/* Movie Details */}
           <div className="modal-details">
             <h2>{movie.title}</h2>
             <p className="description">{movie.overview || "No description available."}</p>
 
-            {/* Trailer Section */}
             {trailer ? (
               <div className="trailer-container">
                 <YouTube videoId={trailer} opts={{ width: "100%", height: "250px" }} />
@@ -138,7 +112,6 @@ function MovieModal({ movie, isOpen, onClose, onAddToFavorites }) {
               <p className="no-trailer">No trailer available.</p>
             )}
 
-            {/* Star-Based Favorites Selection */}
             <div className="favorites-section">
               <label>Add to Favorites:</label>
               <div className="favorites-stars">
@@ -151,7 +124,7 @@ function MovieModal({ movie, isOpen, onClose, onAddToFavorites }) {
                       opacity: highlightedStars.includes(index) ? 1 : 0.4,
                       cursor: "pointer"
                     }}
-                    onClick={() => handleStarClick(index)} // Handle star click to toggle movie in list
+                    onClick={() => handleStarClick(index)}
                   />
                 ))}
               </div>
