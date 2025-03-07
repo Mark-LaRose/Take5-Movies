@@ -2,6 +2,7 @@ import axios from "axios";
 
 const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
+const BASE_API_URL = "https://take5-movies-backend.onrender.com"; // Updated backend URL
 
 export const fetchContent = async (selectedType = "movie", page = 1, searchQuery = "", selectedGenre = "", selectedYear = "", actorQuery = "") => {
   try {
@@ -39,6 +40,22 @@ export const fetchContent = async (selectedType = "movie", page = 1, searchQuery
       poster_path: item.poster_path,
       overview: item.overview || "No description available.",
     }));
+  } catch (error) {
+    return [];
+  }
+};
+
+// Fetch user favorites from Render backend
+export const fetchFavorites = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
+    const response = await axios.get(`${BASE_API_URL}/api/movies/favorites`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return response.data.success ? response.data.favorites : [];
   } catch (error) {
     return [];
   }
