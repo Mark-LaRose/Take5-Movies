@@ -20,25 +20,38 @@ function Sidebar({ isLoggedIn, onSelectFavoritesList }) {
   const [selectedListIndex, setSelectedListIndex] = useState(null);
 
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isLoggedIn || isAuthenticated) { 
+      console.log("User is logged in. Fetching favorites...");
       fetchFavorites();
+    } else {
+      console.log("User is NOT logged in.");
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, isAuthenticated]); 
 
   // Fetch favorite lists from MongoDB
   const fetchFavorites = async () => {
     try {
       const token = localStorage.getItem("token");
-      if (!token) return;
+      if (!token) {
+        console.log("No token found, skipping favorites fetch.");
+        return;
+      }
 
+      console.log("Fetching favorites from API...");
       const response = await axios.get("https://take5-movies-backend.onrender.com/api/movies/favorites", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
+      console.log("Favorites response:", response.data);
+
       if (response.data.success) {
         setFavorites(response.data.favorites);
+      } else {
+        console.error("Favorites API response was unsuccessful:", response.data);
       }
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error fetching favorites:", error);
+    }
   };
 
   // Handle renaming favorite lists
@@ -49,14 +62,21 @@ function Sidebar({ isLoggedIn, onSelectFavoritesList }) {
 
     try {
       const token = localStorage.getItem("token");
-      if (!token) return;
+      if (!token) {
+        console.log("No token found, skipping rename.");
+        return;
+      }
+
+      console.log(`Renaming favorite list ${index} to '${newName}'...`);
 
       await axios.post(
         "https://take5-movies-backend.onrender.com/api/movies/updateFavoriteListName",
         { index, newName },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error renaming favorite list:", error);
+    }
   };
 
   // Handle selecting a favorite list
@@ -75,22 +95,26 @@ function Sidebar({ isLoggedIn, onSelectFavoritesList }) {
       <h5 className="favorites-title">Favorites</h5>
       <div className="favorites-divider"></div>
 
-      {isLoggedIn ? (
+      {isLoggedIn || isAuthenticated ? (
         <div className="favorites-container">
-          {favorites.map((list, index) => (
-            <div
-              key={index}
-              className="favorites-button"
-              onClick={() => handleSelectList(index)}
-            >
-              <FavoriteListItem 
-                list={list} 
-                index={index} 
-                selectedListIndex={selectedListIndex} 
-                renameFavoriteList={renameFavoriteList} 
-              />
-            </div>
-          ))}
+          {favorites.length > 0 ? (
+            favorites.map((list, index) => (
+              <div
+                key={index}
+                className="favorites-button"
+                onClick={() => handleSelectList(index)}
+              >
+                <FavoriteListItem 
+                  list={list} 
+                  index={index} 
+                  selectedListIndex={selectedListIndex} 
+                  renameFavoriteList={renameFavoriteList} 
+                />
+              </div>
+            ))
+          ) : (
+            <p className="no-favorites">No favorites found.</p>
+          )}
         </div>
       ) : (
         <p className="login-message">Login to access favorites.</p>
