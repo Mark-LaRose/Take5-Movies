@@ -51,7 +51,7 @@ function App() {
 
         localStorage.setItem("token", token.__raw);
 
-        const response = await fetch("http://localhost:5000/api/auth/login", {
+        const response = await fetch("https://take5-movies-backend.onrender.com/api/auth/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ token: token.__raw }),
@@ -77,7 +77,7 @@ function App() {
       const token = localStorage.getItem("token");
       if (!token) return;
 
-      const response = await axios.get("http://localhost:5000/api/movies/favorites", {
+      const response = await axios.get("https://take5-movies-backend.onrender.com/api/movies/favorites", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -96,7 +96,7 @@ function App() {
         const token = localStorage.getItem("token");
         if (!token) return;
 
-        const response = await axios.get("http://localhost:5000/api/movies/favorites", {
+        const response = await axios.get("https://take5-movies-backend.onrender.com/api/movies/favorites", {
             headers: { Authorization: `Bearer ${token}` },
         });
 

@@ -31,7 +31,7 @@ function Sidebar({ isLoggedIn, onSelectFavoritesList }) {
       const token = localStorage.getItem("token");
       if (!token) return;
 
-      const response = await axios.get("http://localhost:5000/api/movies/favorites", {
+      const response = await axios.get("https://take5-movies-backend.onrender.com/api/movies/favorites", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -52,7 +52,7 @@ function Sidebar({ isLoggedIn, onSelectFavoritesList }) {
       if (!token) return;
 
       await axios.post(
-        "http://localhost:5000/api/movies/updateFavoriteListName",
+        "https://take5-movies-backend.onrender.com/api/movies/updateFavoriteListName",
         { index, newName },
         { headers: { Authorization: `Bearer ${token}` } }
       );
