@@ -9,22 +9,41 @@ const app = express();
 
 connectDB().catch(() => process.exit(1));
 
-// Improved CORS configuration
+app.use(express.json());
+
+// ✅ Allow both localhost and deployed frontend
+const allowedOrigins = ["http://localhost:3000", "https://take5-movies.onrender.com"];
+
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://take5-movies.onrender.com"], // Allow both local and deployed frontends
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true // Allow cookies and authentication
+    credentials: true
   })
 );
 
-app.use(express.json());
-
-// Debugging middleware to log incoming requests
+// ✅ Ensure every response includes CORS headers
 app.use((req, res, next) => {
-  console.log(`Incoming request: ${req.method} ${req.url}`);
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
   next();
+});
+
+// ✅ Handle preflight requests properly
+app.options("*", (req, res) => {
+  res.status(200).send();
 });
 
 app.use("/api/auth", authRoutes);
@@ -34,14 +53,12 @@ app.get("/", (req, res) => {
   res.send("Server is running!");
 });
 
-// 404 Handler
 app.use((req, res) => {
   res.status(404).json({ success: false, message: "Route Not Found" });
 });
 
-// Global Error Handler
 app.use((err, req, res, next) => {
-  console.error("Server Error:", err); // Logs the error
+  console.error(err);
   res.status(500).json({ success: false, message: "Internal Server Error" });
 });
 
