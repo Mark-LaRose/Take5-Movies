@@ -25,7 +25,7 @@ function Header({
   };
 
   const handleLogout = () => {
-    logout({ returnTo: window.location.origin });
+    logout({ returnTo: "https://take5-movies.onrender.com" });
     toggleLogin();
   };
 
