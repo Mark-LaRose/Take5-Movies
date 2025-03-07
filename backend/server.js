@@ -11,7 +11,7 @@ connectDB().catch(() => process.exit(1));
 
 app.use(express.json());
 
-// ✅ Allow both localhost and deployed frontend
+// Allow both localhost and deployed frontend
 const allowedOrigins = ["http://localhost:3000", "https://take5-movies.onrender.com"];
 
 app.use(
@@ -29,7 +29,7 @@ app.use(
   })
 );
 
-// ✅ Ensure every response includes CORS headers
+// Ensure every response includes CORS headers
 app.use((req, res, next) => {
   const origin = req.headers.origin;
   if (allowedOrigins.includes(origin)) {
@@ -41,7 +41,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// ✅ Handle preflight requests properly
+// Handle preflight requests properly
 app.options("*", (req, res) => {
   res.status(200).send();
 });
