@@ -262,11 +262,90 @@
 
 
 /* ----------------------------------------------------- MEDIA QUERIES ---------------------------------------------------------------------------  */
-
+@media (min-width: 1024px) and (max-width: 1280px) and (min-height: 800px) and (max-height: 800px) {
+    .movie-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2px;
+        padding: 10px;
+        margin-top: -1520px;
+        justify-content: center;
+        max-width: 70%; 
+        margin-left: auto;
+        margin-right: 60px;
+        z-index: 60;
+    }
+    
+    /* Ensures the grid doesn't get too wide */
+    
+    .movie-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        z-index: 60;
+    }
+    
+    .movie-card {
+        background: transparent;
+        border-radius: 8px;
+        text-align: center;
+        padding: 10px;
+        z-index: 60;
+    }
+    
+    .movie-card img {
+        width: 100%;
+        max-width: 120px;
+        border-radius: 8px;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        cursor: pointer;
+    }
+    
+    .movie-card h3 {
+        font-size: 18px;
+        margin: 10px 0 5px;
+    }
+    
+    .movie-card p {
+        font-size: 16px;
+        color: #aaa;
+    }
+    
+    .movie-card img:hover {
+        transform: scale(1.05);
+        box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.6);
+    }
+    
+    /* Pagination */
+    
+    .pagination-controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 280px;
+        margin-top: 20px;
+        margin-bottom: 50px;
+    }
+    
+    .pagination-controls button {
+        background: #444;
+        color: white;
+        border: none;
+        padding: 10px 16px;
+        margin: 0 8px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    
+    .pagination-controls button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
 
 
 /* Desktops & Large Screens: 1280px and up */
-@media screen and (min-width: 1280px) {
+@media screen and (min-width: 1281px) {
     .movie-grid {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
